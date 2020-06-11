@@ -1,13 +1,13 @@
 <template>
-  <div class="options">
-    <h1>Options</h1>
-    <p>Options page.</p>
+  <div class="help">
+    <h1>Help</h1>
+    <p>Help page.</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Options"
+  name: "Help"
 };
 </script>
 

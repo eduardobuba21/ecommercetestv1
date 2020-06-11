@@ -4,12 +4,14 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Checkout from '@/views/Checkout.vue'
 
-import Admin from '@/views/Admin.vue'
-import Overview from '@/views/admin/Overview.vue'
-import Orders from '@/views/admin/Orders.vue'
-import Options from '@/views/admin/Options.vue'
-import Products from '@/views/admin/Products.vue'
-import Profile from '@/views/admin/Profile.vue'
+import DashAdmin from '@/views/DashAdmin.vue'
+import Overview from '@/views/dashadmin/Overview.vue'
+import Orders from '@/views/dashadmin/Orders.vue'
+import Products from '@/views/dashadmin/Products.vue'
+import Clients from '@/views/dashadmin/Clients.vue'
+import Discounts from '@/views/dashadmin/Discounts.vue'
+import Help from '@/views/dashadmin/Help.vue'
+import Settings from '@/views/dashadmin/Settings.vue'
 
 const firebase = require("../firebaseConfig.js");
 
@@ -32,9 +34,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin,
+    path: '/dashadmin',
+    name: 'DashAdmin',
+    component: DashAdmin,
     meta: { requiresAuth: true },
     children: [
       {
@@ -48,19 +50,29 @@ const routes = [
         component: Orders,
       },
       {
-        path: 'options',
-        name: 'Options',
-        component: Options,
-      },
-      {
         path: 'products',
         name: 'Products',
         component: Products,
       },
       {
-        path: 'profile',
-        name: 'Profile',
-        component: Profile,
+        path: 'clients',
+        name: 'Clients',
+        component: Clients,
+      },
+      {
+        path: 'discounts',
+        name: 'Discounts',
+        component: Discounts,
+      },
+      {
+        path: 'help',
+        name: 'Help',
+        component: Help,
+      },
+      {
+        path: 'settings',
+        name: 'Settings',
+        component: Settings,
       }
     ]
   }

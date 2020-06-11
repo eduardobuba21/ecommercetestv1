@@ -187,7 +187,7 @@ export default {
         this.$store.commit("setCurrentUser", user.user);
         this.$store.dispatch("fetchUserProfile");
         this.performingRequest = false;
-        this.$router.push("/admin");
+        this.$router.push("/dashadmin");
       } catch (err) {
         console.log(err);
         this.performingRequest = false;
