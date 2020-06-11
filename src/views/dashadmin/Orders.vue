@@ -1,7 +1,7 @@
 <template>
   <div class="orders">
-    <h1>Orders</h1>
-    <p>Orders page.</p>
+    <h1>Pedidos</h1>
+    <p>Página de pedidos.</p>
   </div>
 </template>
 

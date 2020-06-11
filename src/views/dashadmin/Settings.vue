@@ -1,7 +1,7 @@
 <template>
   <div class="settings">
-    <h1>Settings</h1>
-    <p>Settings page.</p>
+    <h1>Configurações</h1>
+    <p>Página de configurações.</p>
   </div>
 </template>
 

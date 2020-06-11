@@ -12,7 +12,7 @@ export default {};
 body {
   margin: 0;
   padding: 0;
-  background: #1a1a27;
+  background: #282b30;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

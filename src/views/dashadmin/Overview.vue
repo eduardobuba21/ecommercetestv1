@@ -1,7 +1,7 @@
 <template>
   <div class="overview">
-    <h1>Overview</h1>
-    <p>Overview page.</p>
+    <h1>Início</h1>
+    <p>Página início.</p>
   </div>
 </template>
 

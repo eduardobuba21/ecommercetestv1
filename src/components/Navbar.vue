@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <router-link to="/" class="navlogo">
-      <img src="@/assets/visualIdentity/southpine-logotype-horizontal-withoutpine.png" />
+      <img src="@/assets/southpine/logotype-only.svg" />
     </router-link>
 
     <ul class="navlist">
@@ -40,7 +40,7 @@ export default {
 
 <style>
 .navbar {
-  background: #1e1e2d;
+  background: #1e2124;
   height: 100px;
   padding: 0 10%;
   display: grid;
@@ -90,7 +90,7 @@ export default {
 }
 
 .navlist li ul {
-  background: #1e1e2d;
+  background: #1e2124;
   box-shadow: 6px 6px 30px 0px rgba(0, 0, 0, 0.3);
   border-radius: 10%;
   width: 100%;
@@ -129,7 +129,7 @@ export default {
 }
 
 .navlist a:hover {
-  color: #f6a821;
+  color: #ff7f14;
   transform: translate(0, -5px);
 }
 </style>

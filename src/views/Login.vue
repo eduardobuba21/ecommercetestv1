@@ -248,7 +248,7 @@ export default {
 <style>
 #logincontainer {
   height: 100vh;
-  background-color: #212326;
+  background-color: #1e2124;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -264,7 +264,7 @@ export default {
 .loginforms {
   width: 500px;
   border-radius: 10px;
-  background-color: #2d3036;
+  background-color: #282b30;
 }
 
 .loginformitems {

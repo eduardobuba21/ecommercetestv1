@@ -1,7 +1,7 @@
 <template>
   <div class="cproducts">
-    <h1>Products</h1>
-    <p>Products page.</p>
+    <h1>Produtos</h1>
+    <p>Página de produtos.</p>
     <br />
     <br />
     <br />

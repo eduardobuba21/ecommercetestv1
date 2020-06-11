@@ -12,71 +12,85 @@
       </div>
 
       <ul class="da-nav">
-        <li class="active">
+        <li class="active nav01" v-on:click="navClick('nav01')">
           <router-link to="/dashadmin/overview">
             <div class="da-nav-item">
               <span class="da-nav-item-icon">
-                <img src="@/assets/icons/home.svg" />
+                <svg>
+                  <use xlink:href="@/assets/icons.svg#home" />
+                </svg>
               </span>
               <span class="da-nav-item-title">Início</span>
             </div>
           </router-link>
         </li>
-        <li>
+        <li class="nav02" v-on:click="navClick('nav02')">
           <router-link to="/dashadmin/orders">
             <div class="da-nav-item">
               <span class="da-nav-item-icon">
-                <img src="@/assets/icons/home.svg" />
+                <svg>
+                  <use xlink:href="@/assets/icons.svg#order" />
+                </svg>
               </span>
               <span class="da-nav-item-title">Pedidos</span>
             </div>
           </router-link>
         </li>
-        <li>
+        <li class="nav03" v-on:click="navClick('nav03')">
           <router-link to="/dashadmin/products">
             <div class="da-nav-item">
               <span class="da-nav-item-icon">
-                <img src="@/assets/icons/home.svg" />
+                <svg>
+                  <use xlink:href="@/assets/icons.svg#product" />
+                </svg>
               </span>
               <span class="da-nav-item-title">Produtos</span>
             </div>
           </router-link>
         </li>
-        <li>
+        <li class="nav04" v-on:click="navClick('nav04')">
           <router-link to="/dashadmin/clients">
             <div class="da-nav-item">
               <span class="da-nav-item-icon">
-                <img src="@/assets/icons/home.svg" />
+                <svg>
+                  <use xlink:href="@/assets/icons.svg#client" />
+                </svg>
               </span>
               <span class="da-nav-item-title">Clientes</span>
             </div>
           </router-link>
         </li>
-        <li>
+        <li class="nav05" v-on:click="navClick('nav05')">
           <router-link to="/dashadmin/discounts">
             <div class="da-nav-item">
               <span class="da-nav-item-icon">
-                <img src="@/assets/icons/home.svg" />
+                <svg>
+                  <use xlink:href="@/assets/icons.svg#discount" />
+                </svg>
               </span>
               <span class="da-nav-item-title">Cupons</span>
             </div>
           </router-link>
         </li>
-        <li>
+        <li class="nav06" v-on:click="navClick('nav06')">
           <router-link to="/dashadmin/help">
             <div class="da-nav-item">
               <span class="da-nav-item-icon">
-                <img src="@/assets/icons/home.svg" />
+                <svg>
+                  <use xlink:href="@/assets/icons.svg#help" />
+                </svg>
               </span>
               <span class="da-nav-item-title">Ajuda</span>
             </div>
           </router-link>
         </li>
-        <li>
+        <li class="nav07" v-on:click="navClick('nav07')">
           <router-link to="/dashadmin/settings">
             <div class="da-nav-item">
               <span class="da-nav-item-icon">
-                <img src="@/assets/icons/home.svg" />
+                <svg>
+                  <use xlink:href="@/assets/icons.svg#settings" />
+                </svg>
               </span>
               <span class="da-nav-item-title">Configurações</span>
             </div>
@@ -86,7 +100,9 @@
           <a href="#" @click="logout">
             <div class="da-nav-item">
               <span class="da-nav-item-icon">
-                <img src="@/assets/icons/home.svg" />
+                <svg>
+                  <use xlink:href="@/assets/icons.svg#logout" />
+                </svg>
               </span>
               <span class="da-nav-item-title">Logout</span>
             </div>
@@ -122,6 +138,20 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    navClick(navid) {
+      var el = document.querySelector("." + navid);
+      if (el.classList.contains("active")) {
+        return;
+      }
+
+      [].forEach.call(document.querySelectorAll(".active"), function(el) {
+        el.classList.remove("active");
+      });
+
+      // Seleciona o card que esta sendo clicado e o abre.
+      el = document.querySelector("." + navid);
+      el.classList.add("active");
     }
   },
   computed: {
@@ -181,6 +211,10 @@ export default {
   padding: 10px;
 }
 
+.da-nav .active svg {
+  fill: #fff;
+}
+
 .da-nav .active .da-nav-item-title {
   color: #fff;
 }
@@ -209,8 +243,13 @@ export default {
   justify-content: center;
 }
 
-.da-nav-item-icon img {
+.da-nav-item-icon svg {
   width: 25px;
+  fill: #5f6165;
+}
+
+.da-nav-item:hover svg {
+  fill: #fff;
 }
 
 .da-nav-item-title {
@@ -220,7 +259,7 @@ export default {
   color: #5f6165;
 }
 
-.da-nav-item-title:hover {
+.da-nav-item:hover .da-nav-item-title {
   color: #fff;
 }
 

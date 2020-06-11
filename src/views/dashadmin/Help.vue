@@ -1,7 +1,7 @@
 <template>
   <div class="help">
-    <h1>Help</h1>
-    <p>Help page.</p>
+    <h1>Ajuda</h1>
+    <p>Página de ajuda.</p>
   </div>
 </template>
 
