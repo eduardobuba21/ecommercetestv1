@@ -39,7 +39,7 @@
           </transition>
 
           <div class="loginbutton">
-            <button @click="login" class="button">Log in</button>
+            <button @click="login" class="btn-primary">Log in</button>
           </div>
 
           <div class="loginextra">
@@ -84,7 +84,7 @@
           </transition>
 
           <div class="loginbutton">
-            <button @click="signup" class="button">Sign up</button>
+            <button @click="signup" class="btn-primary">Sign up</button>
           </div>
 
           <div class="loginextra">
@@ -118,7 +118,7 @@
             </transition>
 
             <div class="loginbutton">
-              <button @click="resetPassword" class="button">Submit</button>
+              <button @click="resetPassword" class="btn-primary">Submit</button>
             </div>
 
             <div class="loginextra">
@@ -129,7 +129,7 @@
         <div v-else>
           <h1>Email sent</h1>
           <p>Check your email for a link to reset your password</p>
-          <button @click="togglePasswordReset" class="button">Back to Login</button>
+          <button @click="togglePasswordReset" class="btn-primary">Back to Login</button>
         </div>
       </form>
     </div>
@@ -293,12 +293,6 @@ export default {
   background: none;
   color: rgba(255, 255, 255, 0.555);
   height: 35px;
-}
-
-.loginbutton button {
-  padding: 10px;
-  border: 2px solid #ff7f14;
-  border-radius: 10px;
 }
 
 .loginextra {

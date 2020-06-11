@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import '@/assets/styles/ecommerce.css'
+
 const firebase = require('@/firebaseConfig.js')
 import VueFirestore from 'vue-firestore'
 Vue.use(VueFirestore, {
