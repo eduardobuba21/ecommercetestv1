@@ -11,7 +11,8 @@ export default {};
 <style>
 body {
   margin: 0;
-  background: #1a1a27;
+  padding: 0;
+  background: #282b30;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -43,6 +44,10 @@ select:-webkit-autofill:focus {
 a {
   text-decoration: none;
   color: #fff;
+}
+
+ul {
+  list-style: none;
 }
 
 h1 {

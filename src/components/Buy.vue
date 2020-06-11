@@ -1,6 +1,6 @@
 <template>
   <div class="buy">
-    <button class="card-btn" @click="addToCart()">Comprar</button>
+    <button class="btn-primary" @click="addToCart()">Comprar</button>
   </div>
 </template>
 
@@ -19,9 +19,4 @@ export default {
 </script>
 
 <style>
-.card-btn {
-  padding: 10px;
-  border: 2px solid #f6a821;
-  border-radius: 10px;
-}
 </style>
