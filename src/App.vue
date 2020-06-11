@@ -52,5 +52,6 @@ ul {
 
 h1 {
   font-family: "Montserrat", sans-serif;
+  font-size: 1.6rem;
 }
 </style>

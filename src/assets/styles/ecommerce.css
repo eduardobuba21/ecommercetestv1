@@ -6,3 +6,79 @@
   color: #fff;
   cursor: pointer;
 }
+
+.btn-secondary {
+  padding: 10px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  background-color: #00000000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-close {
+  padding: 10px;
+  border: 2px solid #ff7f14;
+  border-radius: 10px;
+  background-color: #00000000;
+  color: #ff7f14;
+  cursor: pointer;
+}
+
+.tbtn-secondary {
+  font-size: 0.6rem;
+  border: 2px solid #ffffff90;
+  color: #ffffff90;
+}
+
+.tbtn-close {
+  font-size: 0.6rem;
+  border: 2px solid #ff7f1490;
+  color: #ff7f1490;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #1e2124;
+}
+tr:hover {
+  background: #ffffff05;
+}
+tr:hover td {
+  color: #ffffff90;
+}
+th,
+td {
+  padding: 5px 20px !important;
+  height: 40px;
+  color: #ffffff50;
+  text-align: left;
+  border-bottom: 2px solid #ffffff10;
+  border-collapse: collapse;
+}
+th {
+  height: 50px;
+  background: #2e3136;
+  color: #ffffff90;
+  font-size: 1.1rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.dash-card-titlebtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+input {
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  background: none;
+  color: rgba(255, 255, 255, 0.555);
+  height: 35px;
+}
