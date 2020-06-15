@@ -19,6 +19,11 @@ import PaymentData from '@/views/dashclient/PaymentData'
 import Personal from '@/views/dashclient/Personal'
 import Address from '@/views/dashclient/Address'
 
+import ChangeName from '@/views/dashclient/change-data/ChangeName'
+import ChangeEmail from '@/views/dashclient/change-data/ChangeEmail'
+import ChangePassword from '@/views/dashclient/change-data/ChangePassword'
+import ChangePhone from '@/views/dashclient/change-data/ChangePhone'
+
 const firebase = require("../firebaseConfig.js");
 
 Vue.use(VueRouter)
@@ -26,17 +31,17 @@ Vue.use(VueRouter)
 const routes = [{
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/checkout',
     name: 'Checkout',
-    component: Checkout
+    component: Checkout,
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
   },
   {
     path: '/dashclient',
@@ -45,22 +50,42 @@ const routes = [{
     children: [{
         path: 'yourorders',
         name: 'YourOrders',
-        component: YourOrders
+        component: YourOrders,
       },
       {
         path: 'paymentdata',
         name: 'PaymentData',
-        component: PaymentData
+        component: PaymentData,
       },
       {
         path: 'personal',
         name: 'Personal',
-        component: Personal
+        component: Personal,
+        children: [{
+          path: 'changename',
+          name: 'ChangeName',
+          component: ChangeName,
+        },
+        {
+          path: 'changeemail',
+          name: 'ChangeEmail',
+          component: ChangeEmail,
+        },
+        {
+          path: 'changePassword',
+          name: 'ChangePassword',
+          component: ChangePassword,
+        },
+        {
+          path: 'changephone',
+          name: 'ChangePhone',
+          component: ChangePhone,
+        }]
       },
       {
         path: 'address',
         name: 'Address',
-        component: Address
+        component: Address,
       }
     ]
   },

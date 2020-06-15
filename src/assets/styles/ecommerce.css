@@ -28,6 +28,15 @@
   cursor: pointer;
 }
 
+.btn-confirm {
+  padding: 10px;
+  border: 2px solid rgb(70, 190, 102);
+  border-radius: 10px;
+  background-color: #00000000;
+  color: #fff;
+  cursor: pointer;
+}
+
 .tbtn-secondary {
   font-size: 0.6rem;
   border: 2px solid #ffffff90;

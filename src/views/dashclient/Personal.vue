@@ -1,62 +1,142 @@
 <template>
   <div class="wrap-personal">
-      <div class="field">
-        <p class="title">Nome</p>
-        <p class="content">Luis Felipe</p>
-        <div class="btn-personal">
-          <button class="btn-primary">Edit</button>
+    <div class="wrap-fields">
+      <div class="wrap-field">
+        <div class="field">
+          <p class="title">Nome</p>
+          <p class="content">{{userProfile.name}}</p>
+          <div class="btn-personal">
+            <router-link to="/dashclient/personal/changename">
+              <div class="btn-primary">Editar</div>
+            </router-link>
+          </div>
         </div>
       </div>
+      <div class="wrap-field">
+        <div class="field">
+          <p class="title">Email</p>
+          <p class="content">{{currentUser.email}}</p>
+          <div class="btn-personal">
+            <router-link to="/dashclient/personal/changeemail">
+              <div class="btn-primary">Editar</div>
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <div class="wrap-field">
+        <div class="field">
+          <p class="title">Senha</p>
+          <p class="content">********</p>
+          <div class="btn-personal">
+            <router-link to="/dashclient/personal/changepassword">
+              <div class="btn-primary">Editar</div>
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <div class="wrap-field">
+        <div class="field">
+          <p class="title">Telefone</p>
+          <p class="content">{{userProfile.phone}}</p>
+          <div class="btn-personal">
+            <router-link to="/dashclient/personal/changephone">
+              <div class="btn-primary">Editar</div>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="changes">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-    name: "Personal"
-}
+  name: "Personal",
+  computed: {
+    ...mapState(["userProfile", "currentUser"])
+  }
+};
 </script>
 
 <style>
-.wrap-personal{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.wrap-personal {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "fields changes";
 }
 
-.wrap-personal .field {
+.wrap-personal .wrap-fields {
+  grid-area: fields;
+}
+
+.wrap-personal .wrap-field {
+  margin: 0;
+}
+
+.wrap-personal .wrap-field .field {
   width: 800px;
   height: 100px;
   border-radius: 20px;
-  border: 1px solid white;
-  background-color: #282b30;
+  background-color: #1e2124;
   color: white;
   font-family: "Montserrat", sans-serif;
   margin: 20px;
   display: grid;
   grid-template-columns: 70% 30%;
   grid-template-rows: 40% 60%;
-  grid-template-areas: "title btn"
-                        "content btn";
+  grid-template-areas:
+    "title btn"
+    "content btn";
 }
 
-.wrap-personal .field .title {
+.wrap-personal .wrap-field .field:hover {
+  background-color: #282b30;
+  box-shadow: 0 7px 9px rgba(0, 0, 0, 0.3);
+}
+
+.wrap-personal .wrap-field .field .title {
   font-weight: 300;
   padding: 2px 0 0 30px;
   grid-area: title;
 }
 
-.wrap-personal .field .content {
+.wrap-personal .wrap-field .field .content {
   font-weight: 100;
   font-size: 0.8em;
   padding: 2px 0 0 30px;
   grid-area: content;
 }
 
-.wrap-personal .field .btn-personal {
+.wrap-personal .wrap-field .field .btn-personal {
   grid-area: btn;
   display: flex;
   padding-right: 30px;
   align-items: center;
   justify-content: flex-end;
+}
+
+.wrap-personal .wrap-field .cg-pass {
+  width: 800px;
+  height: 100px;
+  border-radius: 20px;
+  border: 1px solid white;
+  background-color: #282b30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrap-personal .changes {
+  grid-area: changes;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
