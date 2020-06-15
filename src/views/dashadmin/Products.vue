@@ -1,58 +1,73 @@
 <template>
   <div class="cproducts">
     <h1>Produtos</h1>
-    <p>Página de produtos.</p>
+    <p>Aqui você pode gerenciar os produtos cadastrados e cadastrar novos produtos.</p>
     <br />
     <br />
     <br />
 
-    <h1>Create Product</h1>
-    <div class="form">
-      <input type="text" placeholder="Product name" v-model="product.name" />
-      <input type="text" placeholder="Price" v-model="product.price" />
-      <input type="file" @change="uploadImage" />
-      <button @click="addProduct()">Add product</button>
-    </div>
+    <div class="dash-card" v-if="addProductModal">
+      <div class="dash-card-titlebtn">
+        <h1>Adicionar Produto</h1>
+        <button class="btn-close" @click="addProductModal=false; productList=true">X</button>
+      </div>
+      <div class="form">
+        <input type="text" placeholder="Nome" v-model="product.name" />
+        <input type="text" placeholder="Preço" v-model="product.price" />
+        <input type="file" @change="uploadImage" />
+      </div>
+      <button class="btn-secondary" @click="addProduct()">ADICIONAR</button>
 
-    <div>
-      <div v-for="(image, index) in product.image" :key="image.id">
-        <div class="imgwrap">
-          <img :src="image" width="80px" />
-          <span @click="deleteImage(image, index)">X</span>
+      <div>
+        <div v-for="(image, index) in product.image" :key="image.id">
+          <div class="imgwrap">
+            <img :src="image" width="80px" />
+            <span @click="deleteImage(image, index)">X</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <br />
-    <br />
-    <h1>Edit Product</h1>
-    <div class="form">
-      <input type="text" placeholder="Product ID" v-model="activeproduct" disabled />
-      <input type="text" placeholder="Product name" v-model="editedproduct.name" />
-      <input type="text" placeholder="Price" v-model="editedproduct.price" />
-      <button @click="updateProduct()">Update product</button>
+    <div class="dash-card" v-if="editProductModal">
+      <div class="dash-card-titlebtn">
+        <h1>Edit Product</h1>
+        <button class="btn-close" @click="editProductModal=false; productList=true">X</button>
+      </div>
+      <div class="form">
+        <input type="text" placeholder="Product ID" v-model="activeproduct" disabled />
+        <input type="text" placeholder="Product name" v-model="editedproduct.name" />
+        <input type="text" placeholder="Price" v-model="editedproduct.price" />
+      </div>
+      <button class="btn-secondary" @click="updateProduct()">SALVAR</button>
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Modify</th>
-        </tr>
-      </thead>
+    <div class="dash-card" v-show="productList">
+      <div class="dash-card-titlebtn">
+        <h1>Produtos Cadastrados</h1>
+        <button class="btn-secondary" @click="addProductModal=true; productList=false">ADICIONAR</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 70%">Nome</th>
+            <th style="width: 15%">Preço</th>
+            <th style="width: 15%">Opções</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr v-for="product in products" :key="product.id">
-          <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
-          <td>
-            <button @click="editProduct(product)">Edit</button>
-            <button @click="deleteProduct(product)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <tbody>
+          <tr v-for="product in products" :key="product.id">
+            <td>{{ product.name }}</td>
+            <td>R$ {{ product.price }},00</td>
+            <td>
+              <button class="btn-secondary tbtn-secondary" @click="editProduct(product)">EDITAR</button>
+              <span style="padding: 4px"></span>
+              <button class="btn-close tbtn-close" @click="deleteProduct(product)">EXCLUIR</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -63,6 +78,10 @@ export default {
   name: "Products",
   data() {
     return {
+      addProductModal: false,
+      editProductModal: false,
+      productList: true,
+
       products: [],
       product: {
         name: null,
@@ -127,6 +146,8 @@ export default {
       this.activeproduct = id;
       id = null;
       this.editedproduct = toeditproduct;
+      this.editProductModal = true;
+      this.productList = false;
     },
     updateProduct() {
       this.$firestore.products
@@ -157,7 +178,6 @@ export default {
 
 <style>
 .form {
-  padding: 50px;
   display: flex;
   flex-direction: column;
 }
@@ -171,6 +191,7 @@ export default {
   top: -14px;
   left: -2px;
 }
+
 .images span:hover {
   cursor: pointer;
 }

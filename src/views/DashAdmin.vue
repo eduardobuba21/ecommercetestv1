@@ -267,4 +267,10 @@ export default {
   margin-left: 200px;
   padding: 50px;
 }
+
+.dash-card {
+  background-color: #36393e;
+  padding: 30px;
+  border-radius: 10px;
+}
 </style>
