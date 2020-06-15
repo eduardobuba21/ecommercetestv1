@@ -13,14 +13,17 @@ import Discounts from '@/views/dashadmin/Discounts.vue'
 import Help from '@/views/dashadmin/Help.vue'
 import Settings from '@/views/dashadmin/Settings.vue'
 
-import DashClient from '@/views/client/DashClient'
+import DashClient from '@/views/DashClient'
+import YourOrders from '@/views/dashclient/YourOrders'
+import PaymentData from '@/views/dashclient/PaymentData'
+import Personal from '@/views/dashclient/Personal'
+import Address from '@/views/dashclient/Address'
 
 const firebase = require("../firebaseConfig.js");
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'Home',
     component: Home
@@ -36,17 +39,39 @@ const routes = [
     component: Login
   },
   {
-    path: '/dash-client',
+    path: '/dashclient',
     name: 'DashClient',
-    component: DashClient
+    component: DashClient,
+    children: [{
+        path: 'yourorders',
+        name: 'YourOrders',
+        component: YourOrders
+      },
+      {
+        path: 'paymentdata',
+        name: 'PaymentData',
+        component: PaymentData
+      },
+      {
+        path: 'personal',
+        name: 'Personal',
+        component: Personal
+      },
+      {
+        path: 'address',
+        name: 'Address',
+        component: Address
+      }
+    ]
   },
   {
     path: '/dashadmin',
     name: 'DashAdmin',
     component: DashAdmin,
-    meta: { requiresAuth: true },
-    children: [
-      {
+    meta: {
+      requiresAuth: true
+    },
+    children: [{
         path: 'overview',
         name: 'Overview',
         component: Overview,
@@ -57,19 +82,9 @@ const routes = [
         component: Orders,
       },
       {
-        path: 'options',
-        name: 'Options',
-        component: Options,
-      },
-      {
         path: 'products',
         name: 'Products',
         component: Products,
-      },
-      {
-        path: 'profile',
-        name: 'Profile',
-        component: Profile,
       },
       {
         path: 'clients',
