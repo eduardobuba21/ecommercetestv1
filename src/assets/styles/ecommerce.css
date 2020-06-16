@@ -1,5 +1,51 @@
 /* ======================================================================== */
-/* Scrollbar */
+/* Others */
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #282b30;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+ul {
+  list-style: none;
+}
+
+svg {
+  fill: #303339;
+  width: 50px;
+  height: 50px;
+}
 
 ::-webkit-scrollbar {
   width: 12px;
@@ -15,7 +61,7 @@
 
 
 /* ======================================================================== */
-/* Botões */
+/* Buttons */
 
 button:focus { outline: none; }
 
@@ -24,7 +70,7 @@ button {
   font-weight: bold;
   font-size: 0.9rem;
   border: none;
-  padding: 12px 12px;
+  padding: 12px;
   border-radius: 5px;
   color: #303339;
 }
@@ -48,7 +94,7 @@ button {
 
 
 /* ======================================================================== */
-/* Tabelas */
+/* Tables */
 
 table {
   width: 100%;
@@ -97,32 +143,51 @@ th {
 
 
 /* ======================================================================== */
-/* Formulários */
+/* Labels and Inputs */
 
 label {
   color: #8e9297;
   font-size: 0.9rem;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 input {
   border: none;
   border-radius: 5px;
   margin-bottom: 20px;
-  background: none;
-  height: 35px;
-  padding: 4px 14px;
+  padding: 15px;
   background-color: #303339;
   color: #b9bbbe;
+  font-size: 1rem;
 }
 
-input:focus {
+.inputPrice {
+  position: relative;
+}
+
+.inputPrice span {
+  position: absolute; left: 0px; top: 0px; color: #b9bbbe; padding: 15px;
+}
+
+.inputPrice input { 
+  left: 0; top: 0; padding-left: 45px; 
+}
+
+textarea {
   border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #303339;
+  color: #b9bbbe;
+  resize: vertical;
+  font-size: 1rem;
 }
 
 textarea:focus, input:focus{
   outline: none;
+  border: none;
 }
 
 input:-webkit-autofill,
@@ -145,7 +210,7 @@ select:-webkit-autofill:focus {
 
 
 /* ======================================================================== */
-/* Loader */
+/* Loading Page */
 
 .loadingpage {
   position: fixed;
@@ -178,7 +243,7 @@ select:-webkit-autofill:focus {
 
 
 /* ======================================================================== */
-/* Transições */
+/* Transitions */
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.3s ease-out;
@@ -190,7 +255,7 @@ select:-webkit-autofill:focus {
 
 
 /* ======================================================================== */
-/* Toast */
+/* Toast Notification */
 
 #toastzone {
   position: fixed;
@@ -236,4 +301,79 @@ select:-webkit-autofill:focus {
 
 @keyframes toast {
   0% { transform: translateY(-100%); opacity: 0; }
+}
+
+/* ======================================================================== */
+/* File Input */
+
+.imgInput-wrap {
+  border: 2px;
+  border-color: #8e9297;
+  border-radius: 5px;
+  border-style: dashed;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imgInput-nopreview {
+  width: 100%;
+  height: 150px;
+  border-radius: 5px;
+  background-color: #303339;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgInput-preview-wrap {
+  display: flex;
+}
+
+.imgInput-preview {
+  min-height: 150px;
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  margin: 0 10px;
+}
+
+.imgInput-preview img {
+  width: 150px;
+  border-radius: 5px;
+}
+
+.imgInput-preview svg {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 8px;
+  background: #faa61a;
+  color: #303339;
+  border-bottom-left-radius: 5px;
+  cursor: pointer;
+}
+
+.imgInput-msg {
+  margin-top: 20px;
+  color: #faa61a;
+}
+
+.btn-inputfile {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 20px;
+}
+
+.btn-inputfile svg {
+  width: 25px;
+  height: 25px;
+  fill: #303339;
+  margin-right: 10px;
 }

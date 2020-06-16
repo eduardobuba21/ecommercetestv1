@@ -1,6 +1,10 @@
 <template>
   <div class="dash-admin-wrap" id="dash-admin-wrap">
     <div class="da-menu-wrap">
+      <!-- ======================================================================================================== -->
+      <!-- ======================================================================================================== -->
+      <!-- Profile -->
+
       <div class="da-profile">
         <div class="da-profile-img">
           <img
@@ -10,6 +14,10 @@
         <p class="da-profile-name">{{ userProfile.name }}</p>
         <p class="da-profile-role">Administrador</p>
       </div>
+
+      <!-- ======================================================================================================== -->
+      <!-- ======================================================================================================== -->
+      <!-- Navigation -->
 
       <ul class="da-nav">
         <li class="active nav01" v-on:click="navClick('nav01')">
@@ -96,6 +104,11 @@
             </div>
           </router-link>
         </li>
+
+        <!-- ======================================================================================================== -->
+        <!-- ======================================================================================================== -->
+        <!-- Logout -->
+
         <li>
           <a href="#" @click="logout">
             <div class="da-nav-item">
@@ -110,6 +123,11 @@
         </li>
       </ul>
     </div>
+
+    <!-- ======================================================================================================== -->
+    <!-- ======================================================================================================== -->
+    <!-- Content -->
+
     <div class="da-content-wrap">
       <div id="toastzone"></div>
       <router-view />
@@ -125,8 +143,7 @@ export default {
   name: "DashAdmin",
   data() {
     return {
-      name: null,
-      toastCount: 0
+      name: null
     };
   },
   methods: {
@@ -146,12 +163,9 @@ export default {
       if (el.classList.contains("active")) {
         return;
       }
-
       [].forEach.call(document.querySelectorAll(".active"), function(el) {
         el.classList.remove("active");
       });
-
-      // Seleciona o card que esta sendo clicado e o abre.
       el = document.querySelector("." + navid);
       el.classList.add("active");
     }
@@ -165,7 +179,8 @@ export default {
 <style>
 .dash-admin-wrap {
   background-color: #1e2124;
-  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 .da-menu-wrap {
@@ -179,6 +194,9 @@ export default {
   background-color: #1e2124;
   box-shadow: 6px 6px 30px 0px #00000030;
 }
+
+/* ======================================================================== */
+/* Profile */
 
 .da-profile {
   text-align: center;
@@ -205,6 +223,9 @@ export default {
   margin: 0;
   color: #b9bbbe;
 }
+
+/* ======================================================================== */
+/* Navigation */
 
 .da-nav {
   padding: 10px;
@@ -240,10 +261,12 @@ export default {
   grid-area: da-nav-item-icon;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .da-nav-item-icon svg {
   width: 25px;
+  height: 25px;
   fill: #8e9297;
 }
 
