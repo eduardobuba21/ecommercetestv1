@@ -14,7 +14,7 @@
               <p>Seus Pedidos</p>
             </div>
             <div class="description">
-              <p>Rastrear, devolver ou comprar produtos novamente.</p>
+              <p>Rastrear, devolver ou comprar novamente.</p>
             </div>
           </router-link>
         </div>
@@ -107,7 +107,7 @@ export default {
   background-color: #1e2124;
   margin: 1px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 20px;
   font-family: "Montserrat", sans-serif;
   display: grid;
   width: 100%;
@@ -134,21 +134,27 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-area: "icon";
+  grid-area: icon;
 }
 
 .wrap-cards .container .card .title {
   display: flex;
   color: whitesmoke;
-  grid-area: "title";
+  grid-area: title;
   font-size: 1.2rem;
   font-weight: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wrap-cards .container .card .description {
   font-size: 0.9rem;
   font-weight: 100;
-  grid-area: "description";
+  grid-area: description;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dc-wrap-content {

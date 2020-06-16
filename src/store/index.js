@@ -56,8 +56,9 @@ export default new Vuex.Store({
     updateProfile({ state }, data) {
       let name = data.name
       let title = data.title
+      let email = data.email
 
-      firebase.usersCollection.doc(state.currentUser.uid).update({ name, title })
+      firebase.usersCollection.doc(state.currentUser.uid).update({ name, title, email })
     }
   },
   modules: {
