@@ -165,7 +165,7 @@ export default {
 <style>
 .dash-admin-wrap {
   background-color: #1e2124;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .da-menu-wrap {
@@ -240,10 +240,12 @@ export default {
   grid-area: da-nav-item-icon;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .da-nav-item-icon svg {
   width: 25px;
+  height: 25px;
   fill: #8e9297;
 }
 

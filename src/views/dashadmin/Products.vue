@@ -8,25 +8,75 @@
     <br />
     <br />
 
-    <div class="dash-card" v-if="addProductModal">
-      <div class="dash-card-titlebtn">
-        <h2>Adicionar Produto</h2>
-        <button class="btn-primary-filled" @click="addProductModal=false; productList=true">X</button>
+    <div class="dashadmin-card-2row" v-if="addProductModal">
+      <div class="dashadmin-card-2row-header">
+        <div class="dash-card-titlebtn">
+          <h2>Adicionar Produto</h2>
+          <button class="btn-primary-filled" @click="addProductModal=false; productList=true">X</button>
+        </div>
       </div>
-      <div class="form">
-        <input type="text" placeholder="Nome" v-model="product.name" />
-        <input type="text" placeholder="Preço" v-model="product.price" />
-        <input type="file" @change="uploadImage" />
-      </div>
-      <button class="btn-secondary" @click="addProduct()">ADICIONAR</button>
 
-      <div>
-        <div v-for="(image, index) in product.image" :key="image.id">
-          <div class="imgwrap">
-            <img :src="image" width="80px" />
-            <span @click="deleteImage(image, index)">X</span>
+      <div class="dashadmin-card-2row-left">
+        <div class="dashadmin-card-section">
+          <label>Nome</label>
+          <input type="text" v-model="product.name" />
+          <label>Descrição</label>
+          <textarea rows="8" v-model="product.description" />
+        </div>
+
+        <div class="dashadmin-card-section">
+          <div class="imgInput-wrap">
+            <div class="imgInput-preview-wrap" v-if="product.image">
+              <div class="imgInput-preview" v-for="(image, index) in product.image" :key="image.id">
+                <img :src="image" />
+                <svg @click="deleteImage(image, index)">
+                  <use xlink:href="@/assets/icons.svg#close" />
+                </svg>
+              </div>
+            </div>
+            <div class="imgInput-nopreview">Adicione as imagens aqui utilizando o botão abaixo!</div>
+            <div v-if="performingUpload" class="imgInput-msg">{{ performingUpload }}</div>
+            <input ref="imgInput" type="file" @change="uploadImage" hidden />
+            <button class="btn-first btn-inputfile" @click="$refs.imgInput.click()">
+              <svg>
+                <use xlink:href="@/assets/icons.svg#cloud" />
+              </svg>
+              Adicionar Imagem
+            </button>
           </div>
         </div>
+      </div>
+      <div class="dashadmin-card-2row-right">
+        <div class="dashadmin-card-section">
+          <label>Preço</label>
+          <input type="text" v-model="product.price" />
+          <label>Preço de comparação</label>
+          <input type="text" v-model="product.comparePrice" />
+          <label>Custo</label>
+          <input type="text" v-model="product.cost" />
+        </div>
+
+        <div class="dashadmin-card-section">
+          <label>Quantidade</label>
+          <input type="text" v-model="product.quantity" />
+          <label>Código de barras</label>
+          <input type="text" v-model="product.barcode" />
+          <label>SKU</label>
+          <input type="text" v-model="product.sku" />
+        </div>
+
+        <div class="dashadmin-card-section">
+          <label>Peso</label>
+          <input type="text" v-model="product.weight" />
+        </div>
+
+        <div class="dashadmin-card-section">
+          <label>Categoria</label>
+          <input type="text" v-model="product.type" />
+          <label>Fabricante</label>
+          <input type="text" v-model="product.vendor" />
+        </div>
+        <button class="btn-first" @click="addProduct()">SALVAR</button>
       </div>
     </div>
 
@@ -60,15 +110,15 @@
         <h2>Produtos Cadastrados</h2>
         <button class="btn-first" @click="addProductModal=true; productList=false">ADICIONAR</button>
       </div>
+
       <table>
         <thead>
           <tr>
-            <th style="width: 70%">Nome</th>
-            <th style="width: 15%">Preço</th>
-            <th style="width: 15%">Opções</th>
+            <th>Nome</th>
+            <th style="width: 120px">Preço</th>
+            <th style="width: 140px">Opções</th>
           </tr>
         </thead>
-
         <tbody>
           <tr v-for="product in products" :key="product.id">
             <td>{{ product.name }}</td>
@@ -100,6 +150,8 @@ export default {
       deletionModal: false,
       deletionProduct: "",
 
+      performingUpload: "",
+
       products: [],
       product: {
         name: null,
@@ -129,6 +181,7 @@ export default {
       this.reset();
     },
     uploadImage(e) {
+      this.performingUpload = "Enviando imagem, aguarde...";
       if (e.target.files[0]) {
         let file = e.target.files[0];
         var storageRef = firebase.storage.ref("products/" + file.name);
@@ -138,14 +191,19 @@ export default {
           "state_changed",
           () => {},
           error => {
-            console.log("Error uploading image: ", error);
+            // console.log("Error uploading image: ", error);
+            this.performingUpload =
+              "Ocorreu um erro ao enviar a imagem: " + error;
           },
           () => {
-            console.log("Uploaded");
+            this.performingUpload = "";
+            var preview = document.getElementsByClassName(
+              "imgInput-nopreview"
+            )[0];
             uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
               this.product.image.push(downloadURL);
-              console.log(downloadURL);
             });
+            if (preview) preview.remove();
           }
         );
       }
@@ -200,24 +258,49 @@ export default {
 </script>
 
 <style>
-.form {
+/* ======================================================================== */
+/* Add Product */
+
+.dashadmin-card-2row {
+  display: grid;
+  grid:
+    "dashadmin-card-2row-header dashadmin-card-2row-header" 100px
+    "dashadmin-card-2row-left dashadmin-card-2row-right" 100%
+    / 70% 30%;
+}
+
+.dashadmin-card-2row-header {
+  grid-area: dashadmin-card-2row-header;
+}
+
+.dashadmin-card-2row-left {
+  grid-area: dashadmin-card-2row-left;
+  margin-right: 20px;
   display: flex;
   flex-direction: column;
 }
 
-.form input {
-  margin: 10px 0 10px 0;
+.dashadmin-card-2row-right {
+  grid-area: dashadmin-card-2row-right;
+  display: flex;
+  flex-direction: column;
 }
 
-.images span {
-  position: absolute;
-  top: -14px;
-  left: -2px;
+.dashadmin-card-section {
+  background: #282b30;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
-.images span:hover {
-  cursor: pointer;
+.dashadmin-card-section > :last-child {
+  margin-bottom: 0;
 }
+
+/* ======================================================================== */
+/* Deletion Page */
 
 .productdeletionpage {
   position: fixed;
@@ -235,9 +318,9 @@ export default {
 .productdeletionmodal {
   background-color: #36393f;
   border-radius: 10px;
-  width: 500px;
   padding: 40px;
   text-align: center;
+  max-width: 500px;
 }
 
 .productdeletionmodal h1 {
