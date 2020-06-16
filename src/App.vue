@@ -9,6 +9,11 @@ export default {};
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -27,8 +32,12 @@ ul {
 }
 
 h1 {
-  margin: 0;
   font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 15px;
 }
 </style>

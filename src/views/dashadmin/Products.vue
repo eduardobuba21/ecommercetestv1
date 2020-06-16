@@ -2,14 +2,16 @@
   <div class="cproducts">
     <h1>Produtos</h1>
     <p>Aqui você pode gerenciar os produtos cadastrados e cadastrar novos produtos.</p>
+
+    <!-- <button @click="toastTest()"></button> -->
     <br />
     <br />
     <br />
 
     <div class="dash-card" v-if="addProductModal">
       <div class="dash-card-titlebtn">
-        <h1>Adicionar Produto</h1>
-        <button class="btn-close" @click="addProductModal=false; productList=true">X</button>
+        <h2>Adicionar Produto</h2>
+        <button class="btn-primary-filled" @click="addProductModal=false; productList=true">X</button>
       </div>
       <div class="form">
         <input type="text" placeholder="Nome" v-model="product.name" />
@@ -30,8 +32,8 @@
 
     <div class="dash-card" v-if="editProductModal">
       <div class="dash-card-titlebtn">
-        <h1>Edit Product</h1>
-        <button class="btn-close" @click="editProductModal=false; productList=true">X</button>
+        <h2>Edit Product</h2>
+        <button class="btn-primary-filled" @click="editProductModal=false; productList=true">X</button>
       </div>
       <div class="form">
         <input type="text" placeholder="Product ID" v-model="activeproduct" disabled />
@@ -41,10 +43,22 @@
       <button class="btn-secondary" @click="updateProduct()">SALVAR</button>
     </div>
 
+    <transition name="fade">
+      <div v-if="deletionModal" class="productdeletionpage">
+        <div class="productdeletionmodal">
+          <h1>Você tem certeza?</h1>
+          <p>Você está prestes a excluir o seguinte produto:</p>
+          <p style="color: #faa61a">{{ deletionProduct.name }}</p>
+          <button class="btn-second" @click="deletionModal=false">Cancelar</button>
+          <button class="btn-first" @click="deleteProduct(deletionProduct)">Excluir</button>
+        </div>
+      </div>
+    </transition>
+
     <div class="dash-card" v-show="productList">
       <div class="dash-card-titlebtn">
-        <h1>Produtos Cadastrados</h1>
-        <button class="btn-secondary" @click="addProductModal=true; productList=false">ADICIONAR</button>
+        <h2>Produtos Cadastrados</h2>
+        <button class="btn-first" @click="addProductModal=true; productList=false">ADICIONAR</button>
       </div>
       <table>
         <thead>
@@ -60,9 +74,9 @@
             <td>{{ product.name }}</td>
             <td>R$ {{ product.price }},00</td>
             <td>
-              <button class="btn-secondary tbtn-secondary" @click="editProduct(product)">EDITAR</button>
+              <button class="tbtn tbtn-second" @click="editProduct(product)">EDITAR</button>
               <span style="padding: 4px"></span>
-              <button class="btn-close tbtn-close" @click="deleteProduct(product)">EXCLUIR</button>
+              <button class="tbtn" @click="deletionModal=true; deletionProduct=product;">EXCLUIR</button>
             </td>
           </tr>
         </tbody>
@@ -72,6 +86,7 @@
 </template>
 
 <script>
+import toast from "@/assets/js/toast.js";
 const firebase = require("@/firebaseConfig.js");
 
 export default {
@@ -81,6 +96,9 @@ export default {
       addProductModal: false,
       editProductModal: false,
       productList: true,
+
+      deletionModal: false,
+      deletionProduct: "",
 
       products: [],
       product: {
@@ -103,6 +121,9 @@ export default {
     };
   },
   methods: {
+    toastTest() {
+      toast.createToast("Produto adicionado!");
+    },
     addProduct() {
       this.$firestore.products.add(this.product);
       this.reset();
@@ -157,6 +178,8 @@ export default {
     },
     deleteProduct(product) {
       this.$firestore.products.doc(product.id).delete();
+      this.deletionModal = false;
+      this.deletionProduct = "";
     },
     reset() {
       this.product = {
@@ -194,5 +217,35 @@ export default {
 
 .images span:hover {
   cursor: pointer;
+}
+
+.productdeletionpage {
+  position: fixed;
+  z-index: 1;
+  background-color: #1e2124c2;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productdeletionmodal {
+  background-color: #36393f;
+  border-radius: 10px;
+  width: 500px;
+  padding: 40px;
+  text-align: center;
+}
+
+.productdeletionmodal h1 {
+  margin-bottom: 10px;
+}
+
+.productdeletionmodal button {
+  width: 120px;
+  margin: 20px 10px 0 10px;
 }
 </style>
