@@ -1,44 +1,42 @@
 /* ======================================================================== */
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e2124;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #282b30;
+}
+
+
+/* ======================================================================== */
 /* Botões */
 
-.btn-primary {
-  padding: 10px;
-  border: 2px solid #ff7f14;
-  border-radius: 10px;
-  background-color: #00000000;
-  color: #fff;
+button:focus { outline: none; }
+
+button {
   cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: none;
+  padding: 12px 12px;
+  border-radius: 5px;
+  color: #303339;
 }
 
-.btn-secondary {
-  padding: 10px;
-  border: 2px solid #fff;
-  border-radius: 10px;
-  background-color: #00000000;
-  color: #fff;
-  cursor: pointer;
+.btn-first {
+  background-color: #faa61a;
 }
 
-.btn-close {
-  padding: 10px;
-  border: 2px solid #ff7f14;
-  border-radius: 10px;
-  background-color: #00000000;
-  color: #ff7f14;
-  cursor: pointer;
+.btn-second {
+  background-color: #b9bbbe;
 }
 
-.tbtn-secondary {
-  font-size: 0.6rem;
-  border: 2px solid #ffffff90;
-  color: #ffffff90;
-}
-
-.tbtn-close {
-  font-size: 0.6rem;
-  border: 2px solid #ff7f1490;
-  color: #ff7f1490;
-}
 
 /* ======================================================================== */
 /* Tabelas */
@@ -51,34 +49,43 @@ table {
   background: #1e2124;
 }
 tr:hover {
-  background: #ffffff05;
+  background: #282b30;
 }
 tr:hover td {
-  color: #ffffff90;
+  color: #b9bbbe;
 }
 th,
 td {
   padding: 5px 20px !important;
   height: 40px;
-  color: #ffffff50;
+  color: #8e9297;
   text-align: left;
   border-bottom: 2px solid #ffffff10;
   border-collapse: collapse;
 }
 th {
+  border: none;
   height: 50px;
   background: #2e3136;
-  color: #ffffff90;
+  color: #b9bbbe;
   font-size: 1.1rem;
-  font-family: "Montserrat", sans-serif;
 }
 
-.dash-card-titlebtn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+.tbtn {
+  font-size: 0.7rem;
+  cursor: pointer;
+  background-color: #faa61a;
+  color: #303339;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
 }
+
+.tbtn-second {
+  background-color: #b9bbbe;
+}
+
 
 /* ======================================================================== */
 /* Formulários */
@@ -98,7 +105,7 @@ input {
   height: 35px;
   padding: 4px 14px;
   background-color: #303339;
-  color: #d7d8d9;
+  color: #b9bbbe;
 }
 
 input:focus {
@@ -126,6 +133,7 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
   caret-color: #d7d8d9;
 }
+
 
 /* ======================================================================== */
 /* Loader */
@@ -159,6 +167,7 @@ select:-webkit-autofill:focus {
   animation: spin 1s infinite linear;
 }
 
+
 /* ======================================================================== */
 /* Transições */
 
@@ -168,4 +177,54 @@ select:-webkit-autofill:focus {
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+
+/* ======================================================================== */
+/* Toast */
+
+#toastzone {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+}
+
+.toast {
+  background: #faa61a;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: all 0.5s;
+  overflow: hidden;
+  width: 300px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.toastClose {
+  height: 0px;
+  margin: 0;
+  opacity: 0;
+}
+
+.toast p {
+  margin: 0;
+  color: #303339;
+  font-weight: bold;
+}
+
+.toast svg {
+  width: 25px;
+  fill: #303339;
+}
+
+.toast.up {
+  animation: toast 0.5s;
+}
+
+@keyframes toast {
+  0% { transform: translateY(-100%); opacity: 0; }
 }

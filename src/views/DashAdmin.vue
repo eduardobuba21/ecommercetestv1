@@ -1,5 +1,5 @@
 <template>
-  <div class="dash-admin-wrap">
+  <div class="dash-admin-wrap" id="dash-admin-wrap">
     <div class="da-menu-wrap">
       <div class="da-profile">
         <div class="da-profile-img">
@@ -111,6 +111,7 @@
       </ul>
     </div>
     <div class="da-content-wrap">
+      <div id="toastzone"></div>
       <router-view />
     </div>
   </div>
@@ -124,7 +125,8 @@ export default {
   name: "DashAdmin",
   data() {
     return {
-      name: null
+      name: null,
+      toastCount: 0
     };
   },
   methods: {
@@ -162,13 +164,8 @@ export default {
 
 <style>
 .dash-admin-wrap {
-  background-color: #282b30;
+  background-color: #1e2124;
   height: 100vh;
-}
-
-.dash-admin-wrap * {
-  padding: 0;
-  margin: 0;
 }
 
 .da-menu-wrap {
@@ -180,6 +177,7 @@ export default {
   left: 0;
   overflow-x: hidden;
   background-color: #1e2124;
+  box-shadow: 6px 6px 30px 0px #00000030;
 }
 
 .da-profile {
@@ -205,6 +203,7 @@ export default {
 .da-profile-role {
   font-size: 0.9rem;
   margin: 0;
+  color: #b9bbbe;
 }
 
 .da-nav {
@@ -212,11 +211,11 @@ export default {
 }
 
 .da-nav .active svg {
-  fill: #fff;
+  fill: #b9bbbe;
 }
 
 .da-nav .active .da-nav-item-title {
-  color: #fff;
+  color: #b9bbbe;
 }
 
 .da-nav .active {
@@ -245,23 +244,26 @@ export default {
 
 .da-nav-item-icon svg {
   width: 25px;
-  fill: #5f6165;
+  fill: #8e9297;
 }
 
 .da-nav-item:hover svg {
-  fill: #fff;
+  fill: #b9bbbe;
 }
 
 .da-nav-item-title {
   grid-area: da-nav-item-title;
   display: flex;
   align-items: center;
-  color: #5f6165;
+  color: #8e9297;
 }
 
 .da-nav-item:hover .da-nav-item-title {
-  color: #fff;
+  color: #b9bbbe;
 }
+
+/* ======================================================================== */
+/* Content */
 
 .da-content-wrap {
   margin-left: 200px;
@@ -269,8 +271,28 @@ export default {
 }
 
 .dash-card {
-  background-color: #36393e;
+  background-color: #282b30;
   padding: 30px;
   border-radius: 10px;
+}
+
+.dash-card-titlebtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.dash-admin-wrap h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.6rem;
+}
+
+.dash-admin-wrap h2 {
+  font-size: 1.4rem;
+}
+
+.dash-admin-wrap p {
+  color: #b9bbbe;
 }
 </style>

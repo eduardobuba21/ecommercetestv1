@@ -34,7 +34,7 @@
             </transition>
 
             <div class="loginbutton">
-              <button @click="login" class="btn-primary">Entrar</button>
+              <button @click="login" class="btn-first" style="width: 100%">Entrar</button>
             </div>
 
             <div class="loginextra">
@@ -74,7 +74,7 @@
             </transition>
 
             <div class="loginbutton">
-              <button @click="signup" class="btn-primary">Continuar</button>
+              <button @click="signup" class="btn-first" style="width: 100%">Continuar</button>
             </div>
 
             <div class="loginextra">
@@ -105,7 +105,7 @@
               </transition>
 
               <div class="loginbutton">
-                <button @click="resetPassword" class="btn-primary">Enviar</button>
+                <button @click="resetPassword" class="btn-first" style="width: 100%">Enviar</button>
               </div>
 
               <div class="loginextra">
@@ -120,7 +120,11 @@
                 <p>Verifique seu e-mail para recuperar sua senha.</p>
               </div>
               <div class="loginbutton">
-                <button @click="togglePasswordReset" class="btn-primary">Voltar para o login</button>
+                <button
+                  @click="togglePasswordReset"
+                  class="btn-first"
+                  style="width: 100%"
+                >Voltar para o login</button>
               </div>
             </div>
           </div>
@@ -277,7 +281,6 @@ export default {
 .logintittle h1 {
   font-family: "Roboto", sans-serif;
   font-size: 1.6rem;
-  margin-bottom: 0;
 }
 
 .logintittle p {
@@ -304,17 +307,5 @@ export default {
 .error-msg {
   color: #faa61a;
   margin-bottom: 10px;
-}
-
-.loginbutton button {
-  background-color: #faa61a;
-  font-weight: bold;
-  font-size: 0.9rem;
-  color: #303339;
-  width: 100%;
-  border: none;
-  height: 40px;
-  padding: 4px 14px;
-  border-radius: 5px;
 }
 </style>
