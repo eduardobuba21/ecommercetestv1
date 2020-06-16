@@ -1,5 +1,43 @@
 /* ======================================================================== */
-/* Scrollbar */
+/* Others */
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #282b30;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+ul {
+  list-style: none;
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+svg {
+  fill: #303339;
+  width: 50px;
+  height: 50px;
+}
 
 ::-webkit-scrollbar {
   width: 12px;
@@ -15,7 +53,7 @@
 
 
 /* ======================================================================== */
-/* Botões */
+/* Buttons */
 
 button:focus { outline: none; }
 
@@ -48,7 +86,7 @@ button {
 
 
 /* ======================================================================== */
-/* Tabelas */
+/* Tables */
 
 table {
   width: 100%;
@@ -97,7 +135,7 @@ th {
 
 
 /* ======================================================================== */
-/* Formulários */
+/* Labels and Inputs */
 
 label {
   color: #8e9297;
@@ -150,7 +188,7 @@ select:-webkit-autofill:focus {
 
 
 /* ======================================================================== */
-/* Loader */
+/* Loading Page */
 
 .loadingpage {
   position: fixed;
@@ -183,7 +221,7 @@ select:-webkit-autofill:focus {
 
 
 /* ======================================================================== */
-/* Transições */
+/* Transitions */
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.3s ease-out;
@@ -195,7 +233,7 @@ select:-webkit-autofill:focus {
 
 
 /* ======================================================================== */
-/* Toast */
+/* Toast Notification */
 
 #toastzone {
   position: fixed;
@@ -316,13 +354,4 @@ select:-webkit-autofill:focus {
   height: 25px;
   fill: #303339;
   margin-right: 10px;
-}
-
-/* ======================================================================== */
-/* Others */
-
-svg {
-  fill: #303339;
-  width: 50px;
-  height: 50px;
 }
