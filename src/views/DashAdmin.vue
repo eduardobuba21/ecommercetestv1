@@ -180,6 +180,7 @@ export default {
 .dash-admin-wrap {
   background-color: #1e2124;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .da-menu-wrap {

@@ -22,6 +22,7 @@
 
       <div class="dashadmin-card-2row-left">
         <div class="dashadmin-card-section">
+          <h3>Informações Básicas</h3>
           <label>Nome</label>
           <input type="text" v-model="product.name" />
           <label>Descrição</label>
@@ -29,6 +30,7 @@
         </div>
 
         <div class="dashadmin-card-section">
+          <h3>Imagens</h3>
           <div class="imgInput-wrap">
             <div class="imgInput-preview-wrap" v-if="product.image">
               <div class="imgInput-preview" v-for="(image, index) in product.image" :key="image.id">
@@ -52,15 +54,26 @@
       </div>
       <div class="dashadmin-card-2row-right">
         <div class="dashadmin-card-section">
+          <h3>Precificação</h3>
           <label>Preço</label>
-          <input type="text" v-model="product.price" />
+          <div class="inputPrice">
+            <span class="price-sign">R$</span>
+            <input type="text" v-model="product.price" />
+          </div>
           <label>Preço de comparação</label>
-          <input type="text" v-model="product.comparePrice" />
+          <div class="inputPrice">
+            <span class="price-sign">R$</span>
+            <input type="text" v-model="product.comparePrice" />
+          </div>
           <label>Custo</label>
-          <input type="text" v-model="product.cost" />
+          <div class="inputPrice">
+            <span class="price-sign">R$</span>
+            <input type="text" v-model="product.cost" />
+          </div>
         </div>
 
         <div class="dashadmin-card-section">
+          <h3>Estoque</h3>
           <label>Quantidade</label>
           <input type="text" v-model="product.quantity" />
           <label>Código de barras</label>
@@ -70,11 +83,14 @@
         </div>
 
         <div class="dashadmin-card-section">
+          <h3>Envio</h3>
+          <p>Usado para calcular os custos de envio.</p>
           <label>Peso</label>
           <input type="text" v-model="product.weight" />
         </div>
 
         <div class="dashadmin-card-section">
+          <h3>SEO</h3>
           <label>Categoria</label>
           <input type="text" v-model="product.type" />
           <label>Fabricante</label>
