@@ -7,7 +7,7 @@
           <p class="content">{{userProfile.name}}</p>
           <div class="btn-personal">
             <router-link to="/dashclient/personal/changename">
-              <div class="btn-primary">Editar</div>
+              <button class="btn-primary">Editar</button>
             </router-link>
           </div>
         </div>
@@ -18,7 +18,7 @@
           <p class="content">{{currentUser.email}}</p>
           <div class="btn-personal">
             <router-link to="/dashclient/personal/changeemail">
-              <div class="btn-primary">Editar</div>
+              <button class="btn-primary">Editar</button>
             </router-link>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <p class="content">********</p>
           <div class="btn-personal">
             <router-link to="/dashclient/personal/changepassword">
-              <div class="btn-primary">Editar</div>
+              <button class="btn-primary">Editar</button>
             </router-link>
           </div>
         </div>
@@ -40,7 +40,7 @@
           <p class="content">{{userProfile.phone}}</p>
           <div class="btn-personal">
             <router-link to="/dashclient/personal/changephone">
-              <div class="btn-primary">Editar</div>
+              <button class="btn-primary">Editar</button>
             </router-link>
           </div>
         </div>

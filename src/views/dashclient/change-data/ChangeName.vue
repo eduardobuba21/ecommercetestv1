@@ -1,21 +1,19 @@
 <template>
-  <div class="wrap-change">
-    <div class="change">
-      <div class="title">
-        <h3>Altere seu nome</h3>
-      </div>
-      <div class="description">
-        <p>Se quiser alterar o nome associado à sua conta da South Pine, você poderá fazê-lo a seguir. Lembre-se de clicar no botão Salvar alterações quando tiver concluído.</p>
-      </div>
-      <div class="enter">
-        <input type="text" />
-      </div>
-      <div class="save-changes">
-        <button class="btn-confirm">Salvar alterações</button>
-        <router-link to="/dashclient/personal">
-          <button class="btn-close">Fechar</button>
-        </router-link>
-      </div>
+  <div class="change">
+    <div class="title">
+      <h3>Altere seu nome</h3>
+    </div>
+    <div class="description">
+      <p>Se quiser alterar o nome associado à sua conta da South Pine, você poderá fazê-lo a seguir. Lembre-se de clicar no botão "Salvar Alterações" quando tiver concluído.</p>
+    </div>
+    <div class="enter">
+      <input type="text" />
+    </div>
+    <div class="save-changes">
+      <button class="btn-confirm">Salvar alterações</button>
+      <router-link to="/dashclient/personal">
+        <button class="btn-close">Fechar</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -27,12 +25,8 @@ export default {
 </script>
 
 <style>
-.wrap-change {
-  margin-right: 30px;
+.change {
   font-family: "Montserrat", sans-serif;
-}
-
-.wrap-change .change {
   width: 600px;
   height: 400px;
   border-radius: 20px;
@@ -48,7 +42,7 @@ export default {
     "changebutton";
 }
 
-.wrap-change .change .title {
+.change .title {
   grid-area: changetitle;
   font-size: 1.3rem;
   display: flex;
@@ -56,7 +50,7 @@ export default {
   justify-content: center;
 }
 
-.wrap-change .change .description {
+.change .description {
   grid-area: changedescription;
   font-family: sans-serif;
   padding: 30px;
@@ -65,25 +59,25 @@ export default {
   justify-content: center;
 }
 
-.wrap-change .change .enter {
+.change .enter {
   grid-area: changeinput;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.wrap-change .change .enter input {
+.change .enter input {
   width: 500px;
   height: 30px;
 }
 
-.wrap-change .change .save-changes {
+.change .save-changes {
   grid-area: changebutton;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.wrap-change .change .save-changes button {
+.change .save-changes button {
   margin: 5px;
 }
 </style>
