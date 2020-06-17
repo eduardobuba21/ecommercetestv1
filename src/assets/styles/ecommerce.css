@@ -1,6 +1,10 @@
 /* ======================================================================== */
 /* Others */
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -100,15 +104,18 @@ table {
   width: 100%;
   border-collapse: collapse;
   overflow: hidden;
-  border-radius: 10px;
-  background: #1e2124;
-}
-tr:hover {
+  border-radius: 5px;
   background: #282b30;
 }
+
+tr:hover {
+  background: #303339;
+}
+
 tr:hover td {
   color: #b9bbbe;
 }
+
 th,
 td {
   padding: 5px 20px !important;
@@ -118,10 +125,11 @@ td {
   border-bottom: 2px solid #ffffff10;
   border-collapse: collapse;
 }
+
 th {
   border: none;
   height: 50px;
-  background: #2e3136;
+  background: #303339;
   color: #b9bbbe;
   font-size: 1.1rem;
 }
@@ -147,12 +155,13 @@ th {
 
 label {
   color: #8e9297;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 input {
+  font-family: "Roboto", sans-serif;
   border: none;
   border-radius: 5px;
   margin-bottom: 20px;
@@ -162,17 +171,55 @@ input {
   font-size: 1rem;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ============================ */
+/* Input with prefix e.g. R$ */
 .inputPrefix {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .inputPrefix span {
-  position: absolute; left: 0px; top: 0px; color: #b9bbbe; padding: 14px;
+  position: absolute; 
+  left: 0px; 
+  top: 0px; 
+  color: #b9bbbe; 
+  padding: 14px;
 }
 
 .inputPrefix input { 
-  left: 0; top: 0; padding-left: 45px; 
+  padding-left: 45px;
+  margin-bottom: 0;
 }
+
+.inputPrefix-obs {
+  margin-bottom: 4px;
+}
+
+.inputPrefix-obs-span {
+  margin-left: 4px;
+  color: #8e9297;
+  font-size: 0.85rem;
+}
+
+/* ============================ */
+/* Input with max lenght */
+.inputMaxLength-input {
+  margin-bottom: 4px;
+}
+
+.inputMaxLength-p {
+  font-size: 0.95rem;
+  text-align: right;
+  margin: 0 0 10px 4px;
+} 
 
 textarea {
   border: none;
@@ -183,6 +230,7 @@ textarea {
   color: #b9bbbe;
   resize: vertical;
   font-size: 1rem;
+  font-family: "Roboto", sans-serif;
 }
 
 textarea:focus, input:focus{
@@ -261,10 +309,11 @@ select:-webkit-autofill:focus {
   position: fixed;
   top: 50px;
   right: 50px;
+  z-index: 5;
 }
 
 .toast {
-  background: #faa61a;
+  background: #43b581;
   margin-bottom: 10px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -276,6 +325,14 @@ select:-webkit-autofill:focus {
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+}
+
+.toast-error {
+  background: #f04747;
+}
+
+.toast.up {
+  animation: toast 0.5s;
 }
 
 .toastClose {
@@ -293,10 +350,6 @@ select:-webkit-autofill:focus {
 .toast svg {
   width: 25px;
   fill: #303339;
-}
-
-.toast.up {
-  animation: toast 0.5s;
 }
 
 @keyframes toast {

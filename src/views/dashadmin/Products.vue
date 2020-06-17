@@ -2,31 +2,52 @@
   <div class="cproducts">
     <h1>Produtos</h1>
     <p>Aqui você pode gerenciar os produtos cadastrados e cadastrar novos produtos.</p>
-
-    <button @click="toastTest()"></button>
     <br />
     <br />
     <br />
 
     <!-- ======================================================================================================== -->
     <!-- ======================================================================================================== -->
-    <!-- Add Product -->
+    <!-- Add/Edit Product -->
 
     <div class="dashadmin-card-2row" v-if="addProductModal">
       <div class="dashadmin-card-2row-header">
-        <div class="dash-card-titlebtn">
-          <h2>Adicionar Produto</h2>
-          <button class="btn-primary-filled" @click="addProductModal=false; productList=true">X</button>
+        <div class="dashadmin-card-section">
+          <div class="dash-card-titlebtn">
+            <h2 v-if="!editingProduct">Adicionar Produto</h2>
+            <h2 v-else>Editando Produto</h2>
+            <button
+              v-if="!editingProduct"
+              class="btn-first"
+              @click="addProductModal=false; productList=true"
+            >CANCELAR</button>
+            <button
+              v-else
+              class="btn-first"
+              @click="addProductModal=false; productList=true; editingProduct = false; reset();"
+            >CANCELAR</button>
+          </div>
         </div>
       </div>
 
       <div class="dashadmin-card-2row-left">
+        <div v-if="editingProduct" class="dashadmin-card-section">
+          <label>Código do Produto</label>
+          <input type="text" v-model="activeproduct" disabled />
+        </div>
         <div class="dashadmin-card-section">
           <h3>Informações Básicas</h3>
           <label>Nome</label>
-          <input type="text" v-model="product.name" />
+          <input class="inputMaxLength-input" maxlength="50" type="text" v-model="product.name" />
+          <p class="inputMaxLength-p" v-text="(50 - product.name.length) + '/50'"></p>
           <label>Descrição</label>
-          <textarea rows="8" v-model="product.description" />
+          <textarea
+            class="inputMaxLength-input"
+            maxlength="1000"
+            rows="8"
+            v-model="product.description"
+          />
+          <p class="inputMaxLength-p" v-text="(1000 - product.description.length) + '/1000'"></p>
         </div>
 
         <div class="dashadmin-card-section">
@@ -40,8 +61,11 @@
                 </svg>
               </div>
             </div>
-            <div class="imgInput-nopreview">Adicione as imagens aqui utilizando o botão abaixo!</div>
-            <div v-if="performingUpload" class="imgInput-msg">{{ performingUpload }}</div>
+            <div
+              v-if="!editingProduct"
+              class="imgInput-nopreview"
+            >Adicione as imagens aqui utilizando o botão abaixo!</div>
+            <div v-if="performingUploadMsgShow" class="imgInput-msg">{{ performingUploadMsg }}</div>
             <input ref="imgInput" type="file" @change="uploadImage" hidden />
             <button class="btn-first btn-inputfile" @click="$refs.imgInput.click()">
               <svg>
@@ -51,6 +75,10 @@
             </button>
           </div>
         </div>
+        <div class="dashadmin-card-section">
+          <h3>Variações</h3>
+          <p>*Pendente*</p>
+        </div>
       </div>
       <div class="dashadmin-card-2row-right">
         <div class="dashadmin-card-section">
@@ -58,29 +86,29 @@
           <label>Preço</label>
           <div class="inputPrefix">
             <span>R$</span>
-            <input type="text" v-model="product.price" />
+            <money v-model="product.price" maxlength="9" />
           </div>
           <label>Preço de comparação</label>
           <div class="inputPrefix">
             <span>R$</span>
-            <input type="text" v-model="product.comparePrice" />
+            <money v-model="product.priceCompare" maxlength="9" />
           </div>
           <label>Custo</label>
-          <div class="inputPrefix">
+          <div class="inputPrefix inputPrefix-obs">
             <span>R$</span>
-            <input type="text" v-model="product.cost" />
+            <money v-model="product.cost" maxlength="9" />
           </div>
+          <span class="inputPrefix-obs-span">O cliente não verá isto.</span>
         </div>
 
         <div class="dashadmin-card-section">
           <h3>Estoque</h3>
           <label>Quantidade</label>
-          <the-mask :mask="'##/##/####'" />
-          <money v-model="price" v-bind="money" />
+          <input type="text" v-model="product.quantity" maxlength="5" />
           <label>Código de barras</label>
-          <input type="text" v-model="product.barcode" />
+          <input type="text" v-model="product.barcode" maxlength="40" />
           <label>SKU</label>
-          <input type="text" v-model="product.sku" />
+          <input type="text" v-model="product.sku" maxlength="12" />
         </div>
 
         <div class="dashadmin-card-section">
@@ -89,36 +117,21 @@
           <label>Peso</label>
           <div class="inputPrefix">
             <span>KG</span>
-            <input type="text" v-model="product.weight" />
+            <input type="text" v-model="product.weight" maxlength="4" />
           </div>
         </div>
 
         <div class="dashadmin-card-section">
           <h3>SEO</h3>
+          <p>*Pendente*</p>
           <label>Categoria</label>
-          <input type="text" v-model="product.type" />
+          <input type="text" v-model="product.type" disabled />
           <label>Fabricante</label>
-          <input type="text" v-model="product.vendor" />
+          <input type="text" v-model="product.vendor" disabled />
         </div>
-        <button class="btn-first" @click="addProduct()">SALVAR</button>
+        <button v-if="!editingProduct" class="btn-first" @click="addProduct()">ADICIONAR PRODUTO</button>
+        <button v-else class="btn-first" @click="updateProduct()">SALVAR ALTERAÇÕES</button>
       </div>
-    </div>
-
-    <!-- ======================================================================================================== -->
-    <!-- ======================================================================================================== -->
-    <!-- Edit Product -->
-
-    <div class="dash-card" v-if="editProductModal">
-      <div class="dash-card-titlebtn">
-        <h2>Edit Product</h2>
-        <button class="btn-primary-filled" @click="editProductModal=false; productList=true">X</button>
-      </div>
-      <div class="form">
-        <input type="text" placeholder="Product ID" v-model="activeproduct" disabled />
-        <input type="text" placeholder="Product name" v-model="editedproduct.name" />
-        <input type="text" placeholder="Price" v-model="editedproduct.price" />
-      </div>
-      <button class="btn-secondary" @click="updateProduct()">SALVAR</button>
     </div>
 
     <transition name="fade">
@@ -137,32 +150,39 @@
     <!-- ======================================================================================================== -->
     <!-- Product List -->
 
-    <div class="dash-card" v-show="productList">
-      <div class="dash-card-titlebtn">
-        <h2>Produtos Cadastrados</h2>
-        <button class="btn-first" @click="addProductModal=true; productList=false">ADICIONAR</button>
+    <div class="dashadmin-card-full" v-show="productList">
+      <div class="dashadmin-card-full-header">
+        <div class="dashadmin-card-section">
+          <div class="dash-card-titlebtn">
+            <h2>Produtos Cadastrados</h2>
+            <button class="btn-first" @click="addProductModal=true; productList=false">ADICIONAR</button>
+          </div>
+        </div>
       </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th style="width: 120px">Preço</th>
-            <th style="width: 140px">Opções</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="product in products" :key="product.id">
-            <td>{{ product.name }}</td>
-            <td>R$ {{ product.price }},00</td>
-            <td>
-              <button class="tbtn tbtn-second" @click="editProduct(product)">EDITAR</button>
-              <span style="padding: 4px"></span>
-              <button class="tbtn" @click="deletionModal=true; deletionProduct=product;">EXCLUIR</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="dashadmin-card-full-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th style="width: 50px">Qtd.</th>
+              <th style="width: 120px">Preço</th>
+              <th style="width: 140px">Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in products" :key="product.id">
+              <td>{{ product.name }}</td>
+              <td>{{ product.quantity }}</td>
+              <td>R$ {{ product.price }},00</td>
+              <td>
+                <button class="tbtn tbtn-second" @click="editProduct(product)">EDITAR</button>
+                <span style="padding: 4px"></span>
+                <button class="tbtn" @click="deletionModal=true; deletionProduct=product;">EXCLUIR</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -176,20 +196,32 @@ export default {
   data() {
     return {
       addProductModal: false,
-      editProductModal: false,
+      editingProduct: false,
       productList: true,
 
       deletionModal: false,
       deletionProduct: "",
 
-      performingUpload: "",
+      performingUpload: false,
+      performingUploadMsg: "",
+      performingUploadMsgShow: false,
 
       products: [],
       product: {
-        name: null,
-        price: null,
-        image: []
+        name: "",
+        description: "",
+        image: [],
+        price: 0.0,
+        priceCompare: 0.0,
+        cost: 0.0,
+        quantity: "",
+        barcode: "",
+        sku: "",
+        weight: "",
+        type: null,
+        vendor: null
       },
+
       editedproduct: {
         id: null,
         name: null,
@@ -205,15 +237,20 @@ export default {
     };
   },
   methods: {
-    toastTest() {
-      toast.createToast("Produto adicionado!");
-    },
     addProduct() {
+      if (this.performingUpload) {
+        toast.createToast("Aguarde o envio das imagens!", false);
+        return;
+      }
       this.$firestore.products.add(this.product);
       this.reset();
+      window.scrollTo(0, 0);
+      toast.createToast("Produto adicionado!");
     },
     uploadImage(e) {
-      this.performingUpload = "Enviando imagem, aguarde...";
+      this.performingUpload = true;
+      this.performingUploadMsgShow = true;
+      this.performingUploadMsg = "Enviando imagem, aguarde...";
       if (e.target.files[0]) {
         let file = e.target.files[0];
         var storageRef = firebase.storage.ref("products/" + file.name);
@@ -224,17 +261,19 @@ export default {
           () => {},
           error => {
             // console.log("Error uploading image: ", error);
-            this.performingUpload =
+            this.performingUpload = false;
+            this.performingUploadMsg =
               "Ocorreu um erro ao enviar a imagem: " + error;
           },
           () => {
-            this.performingUpload = "";
             var preview = document.getElementsByClassName(
               "imgInput-nopreview"
             )[0];
             uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
               this.product.image.push(downloadURL);
             });
+            this.performingUpload = false;
+            this.performingUploadMsgShow = false;
             if (preview) preview.remove();
           }
         );
@@ -256,15 +295,19 @@ export default {
       let { id, ...toeditproduct } = product;
       this.activeproduct = id;
       id = null;
-      this.editedproduct = toeditproduct;
-      this.editProductModal = true;
+      this.product = toeditproduct;
+      this.addProductModal = true;
+      this.editingProduct = true;
       this.productList = false;
     },
     updateProduct() {
-      this.$firestore.products
-        .doc(this.activeproduct)
-        .update(this.editedproduct);
+      this.$firestore.products.doc(this.activeproduct).update(this.product);
       this.reset();
+      window.scrollTo(0, 0);
+      toast.createToast("Informações Atualizadas!");
+      this.addProductModal = false;
+      this.editingProduct = false;
+      this.productList = true;
     },
     deleteProduct(product) {
       this.$firestore.products.doc(product.id).delete();
@@ -273,15 +316,18 @@ export default {
     },
     reset() {
       this.product = {
-        name: null,
-        price: null,
-        image: []
-      };
-      this.editedproduct = {
-        id: null,
-        name: null,
-        price: null,
-        image: []
+        name: "",
+        description: "",
+        image: [],
+        price: 0.0,
+        priceCompare: 0.0,
+        cost: 0.0,
+        quantity: "",
+        barcode: "",
+        sku: "",
+        weight: "",
+        type: null,
+        vendor: null
       };
       this.activeproduct = null;
     }
@@ -290,6 +336,25 @@ export default {
 </script>
 
 <style>
+/* ======================================================================== */
+/* Product List */
+
+.dashadmin-card-full {
+  display: grid;
+  grid:
+    "dashadmin-card-full-header" 100px
+    "dashadmin-card-full-table" 100%
+    / 100%;
+}
+
+.dashadmin-card-full-header {
+  grid-area: dashadmin-card-full-header;
+}
+
+.dashadmin-card-full-table {
+  grid-area: dashadmin-card-full-table;
+}
+
 /* ======================================================================== */
 /* Add Product */
 
@@ -325,6 +390,10 @@ export default {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+}
+
+.dashadmin-card-section p {
+  font-size: 0.95rem;
 }
 
 .dashadmin-card-section > :last-child {

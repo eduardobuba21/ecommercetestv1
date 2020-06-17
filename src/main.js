@@ -19,7 +19,7 @@ Vue.use(VueFirestore, {
 import VueTheMask from 'vue-the-mask'
 Vue.use(VueTheMask)
 import money from 'v-money'
-Vue.use(money, { precision: 2, masked: false })
+Vue.use(money, { precision: 2, masked: false, decimal: ',', thousands: '.', })
 
 // ======================================================================== //
 // Buy Button //
