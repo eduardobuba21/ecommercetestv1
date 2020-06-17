@@ -162,15 +162,15 @@ input {
   font-size: 1rem;
 }
 
-.inputPrice {
+.inputPrefix {
   position: relative;
 }
 
-.inputPrice span {
-  position: absolute; left: 0px; top: 0px; color: #b9bbbe; padding: 15px;
+.inputPrefix span {
+  position: absolute; left: 0px; top: 0px; color: #b9bbbe; padding: 14px;
 }
 
-.inputPrice input { 
+.inputPrefix input { 
   left: 0; top: 0; padding-left: 45px; 
 }
 

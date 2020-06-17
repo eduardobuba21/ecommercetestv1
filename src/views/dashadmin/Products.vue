@@ -3,7 +3,7 @@
     <h1>Produtos</h1>
     <p>Aqui você pode gerenciar os produtos cadastrados e cadastrar novos produtos.</p>
 
-    <!-- <button @click="toastTest()"></button> -->
+    <button @click="toastTest()"></button>
     <br />
     <br />
     <br />
@@ -56,18 +56,18 @@
         <div class="dashadmin-card-section">
           <h3>Precificação</h3>
           <label>Preço</label>
-          <div class="inputPrice">
-            <span class="price-sign">R$</span>
+          <div class="inputPrefix">
+            <span>R$</span>
             <input type="text" v-model="product.price" />
           </div>
           <label>Preço de comparação</label>
-          <div class="inputPrice">
-            <span class="price-sign">R$</span>
+          <div class="inputPrefix">
+            <span>R$</span>
             <input type="text" v-model="product.comparePrice" />
           </div>
           <label>Custo</label>
-          <div class="inputPrice">
-            <span class="price-sign">R$</span>
+          <div class="inputPrefix">
+            <span>R$</span>
             <input type="text" v-model="product.cost" />
           </div>
         </div>
@@ -75,7 +75,8 @@
         <div class="dashadmin-card-section">
           <h3>Estoque</h3>
           <label>Quantidade</label>
-          <input type="text" v-model="product.quantity" />
+          <the-mask :mask="'##/##/####'" />
+          <money v-model="price" v-bind="money" />
           <label>Código de barras</label>
           <input type="text" v-model="product.barcode" />
           <label>SKU</label>
@@ -86,7 +87,10 @@
           <h3>Envio</h3>
           <p>Usado para calcular os custos de envio.</p>
           <label>Peso</label>
-          <input type="text" v-model="product.weight" />
+          <div class="inputPrefix">
+            <span>KG</span>
+            <input type="text" v-model="product.weight" />
+          </div>
         </div>
 
         <div class="dashadmin-card-section">

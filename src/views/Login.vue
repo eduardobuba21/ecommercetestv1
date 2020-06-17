@@ -155,7 +155,7 @@ export default {
       },
       showLoginForm: true,
       showForgotPassword: false,
-      passwordResetSucess: false,
+      passwordResetSuccess: false,
       performingRequest: false,
       errorMsg: ""
     };
