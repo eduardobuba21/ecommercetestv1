@@ -1,7 +1,7 @@
 <template>
   <div class="change">
     <div class="title">
-      <h3>Altere seu nome</h3>
+      <h2>Altere seu nome</h2>
     </div>
     <div class="description">
       <p>Se quiser alterar o nome associado à sua conta da South Pine, você poderá fazê-lo a seguir. Lembre-se de clicar no botão "Salvar Alterações" quando tiver concluído.</p>
@@ -67,8 +67,7 @@ export default {
 }
 
 .change .enter input {
-  width: 500px;
-  height: 30px;
+  width: 400px;
 }
 
 .change .save-changes {
