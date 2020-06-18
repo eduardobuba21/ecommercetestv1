@@ -127,6 +127,11 @@
     <!-- ======================================================================================================== -->
     <!-- ======================================================================================================== -->
     <!-- Content -->
+    <transition name="fade">
+      <div id="loadingzone" class="loadingpage hidden">
+        <div class="loadingcircle"></div>
+      </div>
+    </transition>
 
     <div class="da-content-wrap">
       <div id="toastzone"></div>

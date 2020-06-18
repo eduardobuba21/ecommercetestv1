@@ -44,7 +44,7 @@ var toast = {
         toast.style.display = "none";
         toast.remove();
       }, 500);
-    }, 4000);
+    }, 6000);
   }
 }
 
