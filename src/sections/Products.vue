@@ -8,7 +8,9 @@
       <div class="card" v-for="product in products" :key="product.id">
         <img class="card-img" :src="product.image" />
         <h3 class="card-title">{{ product.name }}</h3>
-        <h3 class="card-price">R$ {{ product.price }}</h3>
+        <h3
+          class="card-price"
+        >R$ {{ product.price.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') }}</h3>
         <buy :productId="product.id"></buy>
       </div>
     </div>

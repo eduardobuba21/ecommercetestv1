@@ -29,110 +29,113 @@ const firebase = require("../firebaseConfig.js");
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
-    name: 'Home',
-    component: Home,
+  path: '/',
+  name: 'Home',
+  component: Home,
+},
+{
+  path: '/checkout',
+  name: 'Checkout',
+  component: Checkout,
+},
+{
+  path: '/login',
+  name: 'Login',
+  component: Login,
+  meta: {
+    loginRedirect: true
+  },
+},
+{
+  path: '/dashclient',
+  name: 'DashClient',
+  component: DashClient,
+  children: [{
+    path: 'yourorders',
+    name: 'YourOrders',
+    component: YourOrders,
   },
   {
-    path: '/checkout',
-    name: 'Checkout',
-    component: Checkout,
+    path: 'paymentdata',
+    name: 'PaymentData',
+    component: PaymentData,
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-  },
-  {
-    path: '/dashclient',
-    name: 'DashClient',
-    component: DashClient,
+    path: 'personal',
+    name: 'Personal',
+    component: Personal,
     children: [{
-        path: 'yourorders',
-        name: 'YourOrders',
-        component: YourOrders,
-      },
-      {
-        path: 'paymentdata',
-        name: 'PaymentData',
-        component: PaymentData,
-      },
-      {
-        path: 'personal',
-        name: 'Personal',
-        component: Personal,
-        children: [{
-          path: 'changename',
-          name: 'ChangeName',
-          component: ChangeName,
-        },
-        {
-          path: 'changeemail',
-          name: 'ChangeEmail',
-          component: ChangeEmail,
-        },
-        {
-          path: 'changePassword',
-          name: 'ChangePassword',
-          component: ChangePassword,
-        },
-        {
-          path: 'changephone',
-          name: 'ChangePhone',
-          component: ChangePhone,
-        }]
-      },
-      {
-        path: 'address',
-        name: 'Address',
-        component: Address,
-      }
-    ]
-  },
-  {
-    path: '/dashadmin',
-    name: 'DashAdmin',
-    component: DashAdmin,
-    meta: {
-      requiresAuth: true
+      path: 'changename',
+      name: 'ChangeName',
+      component: ChangeName,
     },
-    children: [{
-        path: 'overview',
-        name: 'Overview',
-        component: Overview,
-      },
-      {
-        path: 'orders',
-        name: 'Orders',
-        component: Orders,
-      },
-      {
-        path: 'products',
-        name: 'Products',
-        component: Products,
-      },
-      {
-        path: 'clients',
-        name: 'Clients',
-        component: Clients,
-      },
-      {
-        path: 'discounts',
-        name: 'Discounts',
-        component: Discounts,
-      },
-      {
-        path: 'help',
-        name: 'Help',
-        component: Help,
-      },
-      {
-        path: 'settings',
-        name: 'Settings',
-        component: Settings,
-      }
-    ]
+    {
+      path: 'changeemail',
+      name: 'ChangeEmail',
+      component: ChangeEmail,
+    },
+    {
+      path: 'changePassword',
+      name: 'ChangePassword',
+      component: ChangePassword,
+    },
+    {
+      path: 'changephone',
+      name: 'ChangePhone',
+      component: ChangePhone,
+    }]
+  },
+  {
+    path: 'address',
+    name: 'Address',
+    component: Address,
   }
+  ]
+},
+{
+  path: '/dashadmin',
+  name: 'DashAdmin',
+  component: DashAdmin,
+  meta: {
+    requiresAuth: true
+  },
+  children: [{
+    path: 'overview',
+    name: 'Overview',
+    component: Overview,
+  },
+  {
+    path: 'orders',
+    name: 'Orders',
+    component: Orders,
+  },
+  {
+    path: 'products',
+    name: 'Products',
+    component: Products,
+  },
+  {
+    path: 'clients',
+    name: 'Clients',
+    component: Clients,
+  },
+  {
+    path: 'discounts',
+    name: 'Discounts',
+    component: Discounts,
+  },
+  {
+    path: 'help',
+    name: 'Help',
+    component: Help,
+  },
+  {
+    path: 'settings',
+    name: 'Settings',
+    component: Settings,
+  }
+  ]
+}
 ]
 
 const router = new VueRouter({
@@ -143,6 +146,15 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = firebase.auth.currentUser
+
+  const loginRedirect = to.matched.some(x => x.meta.loginRedirect)
+  if (loginRedirect) {
+    if (!currentUser) {
+      next()
+    } else {
+      next('/dashadmin')
+    }
+  }
 
   if (requiresAuth && !currentUser) {
     next('/')
