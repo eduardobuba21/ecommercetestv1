@@ -20,7 +20,7 @@
             <button
               v-else
               class="btn-first"
-              @click="addProductModal=false; productList=true; editingProduct = false; reset();"
+              @click="addProductModal=false; productList=true; editingProduct = false; reset(); deleteNotComfirmedImages();"
             >CANCELAR</button>
           </div>
         </div>
@@ -63,7 +63,11 @@
             >Adicione as imagens aqui utilizando o botão abaixo!</div>
             <div v-if="performingUploadMsgShow" class="imgInput-msg">{{ performingUploadMsg }}</div>
             <input ref="imgInput" type="file" @change="uploadImage" hidden />
-            <button class="btn-first btn-inputfile" @click="$refs.imgInput.click()">
+            <button
+              id="imginputbutton"
+              class="btn-first btn-inputfile"
+              @click="$refs.imgInput.click()"
+            >
               <svg>
                 <use xlink:href="@/assets/icons.svg#cloud" />
               </svg>
@@ -253,6 +257,7 @@ export default {
         profit: 0
       },
       haveVariants: false,
+      notComfirmedImages: [],
 
       editingProductImg: false,
       activeproduct: null
@@ -300,6 +305,7 @@ export default {
       } else {
         this.editingProductImg = true;
       }
+      this.performingUploadMsgShow = false;
       this.addProductModal = true;
       this.editingProduct = true;
       this.productList = false;
@@ -315,6 +321,7 @@ export default {
         .update(this.product)
         .then(() => {
           this.reset();
+          this.notComfirmedImages = [];
           window.scrollTo(0, 0);
           loading.switch(false);
           toast.createToast("Informações Atualizadas!");
@@ -333,6 +340,7 @@ export default {
       this.performingUpload = true;
       this.performingUploadMsgShow = true;
       this.performingUploadMsg = "Enviando imagem, aguarde...";
+      document.getElementById("imginputbutton").disabled = true;
       if (e.target.files[0]) {
         let file = e.target.files[0];
         var storageRef = firebase.storage.ref("products/" + file.name);
@@ -346,6 +354,7 @@ export default {
             this.performingUpload = false;
             this.performingUploadMsg =
               "Ocorreu um erro ao enviar a imagem: " + error;
+            document.getElementById("imginputbutton").disabled = false;
           },
           () => {
             var preview = document.getElementsByClassName(
@@ -353,21 +362,39 @@ export default {
             )[0];
             uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
               this.product.image.push(downloadURL);
+              this.notComfirmedImages.push(downloadURL);
             });
+            document.getElementById("imginputbutton").disabled = false;
             this.performingUpload = false;
             this.performingUploadMsgShow = false;
-            if (preview) preview.remove();
+            if (preview) preview.classList.add("hidden");
           }
         );
       }
     },
+    deleteNotComfirmedImages() {
+      this.notComfirmedImages.forEach(element => {
+        let image = firebase.storage.refFromURL(element);
+        image.delete();
+      });
+      this.notComfirmedImages = [];
+    },
     deleteImage(img, index) {
       let image = firebase.storage.refFromURL(img);
       this.product.image.splice(index, 1);
+      this.notComfirmedImages = this.notComfirmedImages.filter(
+        item => item !== img
+      );
       image
         .delete()
         .then(() => {
           this.performingUploadMsgShow = true;
+          this.editingProductImg = false;
+          if (Object.keys(this.product.image).length === 0) {
+            document
+              .getElementsByClassName("imgInput-nopreview")[0]
+              .classList.remove("hidden");
+          }
           this.performingUploadMsg = "Imagem deletada!";
         })
         .catch(function(error) {
