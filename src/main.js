@@ -5,6 +5,8 @@ import store from './store'
 
 import '@/assets/styles/ecommerce.css'
 
+// ======================================================================== //
+// Firebase //
 const firebase = require('@/firebaseConfig.js')
 import VueFirestore from 'vue-firestore'
 Vue.use(VueFirestore, {
@@ -12,7 +14,17 @@ Vue.use(VueFirestore, {
   enumerable: true
 })
 
+// ======================================================================== //
+// Input Masks //
+import VueTheMask from 'vue-the-mask'
+Vue.use(VueTheMask)
+import money from 'v-money'
+Vue.use(money, { precision: 2, masked: false, decimal: ',', thousands: '.', })
+
+// ======================================================================== //
+// Buy Button //
 Vue.component('Buy', require('@/components/Buy.vue').default)
+
 
 Vue.config.productionTip = false
 
