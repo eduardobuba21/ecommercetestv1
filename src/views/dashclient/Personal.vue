@@ -53,12 +53,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Personal",
   computed: {
-    ...mapState(["userProfile", "currentUser"])
+    ...mapGetters(["currentUser", "userProfile"])
   }
 };
 </script>
