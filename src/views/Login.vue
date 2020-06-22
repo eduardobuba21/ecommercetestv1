@@ -6,6 +6,10 @@
       </div>
     </transition>
 
+    <!-- ======================================================================================================== -->
+    <!-- ======================================================================================================== -->
+    <!-- Login Form -->
+
     <div id="formscontainer" :class="{ 'signup-form': !showLoginForm && !showForgotPassword }">
       <transition name="fade">
         <form v-if="showLoginForm" @submit.prevent class="loginforms">
@@ -48,6 +52,10 @@
         </form>
       </transition>
 
+      <!-- ======================================================================================================== -->
+      <!-- ======================================================================================================== -->
+      <!-- Register Form -->
+
       <transition name="fade">
         <form v-if="!showLoginForm && !showForgotPassword" @submit.prevent class="loginforms">
           <div class="loginformitems">
@@ -58,11 +66,19 @@
 
             <div class="loginfield">
               <label for="name">Nome</label>
-              <input v-model.trim="signupForm.name" type="text" id="name" />
-              <label for="title">CPF</label>
-              <input v-model.trim="signupForm.title" type="text" id="title" />
+              <input v-model.trim="signupForm.name" type="text" id="name" maxlength="50" />
+              <label for="cpf">CPF</label>
+              <!-- <input v-model.trim="signupForm.cpf" type="text" id="cpf" /> -->
+              <the-mask :mask="'###.###.###-##'" :masked="true" id="cpf" v-model="signupForm.cpf" />
+              <label for="phone">Telefone</label>
+              <the-mask
+                :mask="['(##) ####-####', '(##) #####-####']"
+                :masked="true"
+                id="phone"
+                v-model="signupForm.phone"
+              />
               <label for="email2">E-mail</label>
-              <input v-model.trim="signupForm.email" type="text" id="email2" />
+              <input v-model.trim="signupForm.email" type="text" id="email2" maxlength="50" />
               <label for="password2">Senha</label>
               <input v-model.trim="signupForm.password" type="password" id="password2" />
             </div>
@@ -83,6 +99,10 @@
           </div>
         </form>
       </transition>
+
+      <!-- ======================================================================================================== -->
+      <!-- ======================================================================================================== -->
+      <!-- Forgot Password Form -->
 
       <transition name="fade">
         <form v-if="showForgotPassword" @submit.prevent class="password-reset loginforms">
@@ -146,7 +166,8 @@ export default {
       },
       signupForm: {
         name: "",
-        title: "",
+        cpf: "",
+        phone: "",
         email: "",
         password: ""
       },
@@ -185,7 +206,7 @@ export default {
         this.$store.commit("setCurrentUser", user.user);
         this.$store.dispatch("fetchUserProfile");
         this.performingRequest = false;
-        this.$router.push("/dashadmin");
+        this.$router.push("/dashadmin/overview");
       } catch (err) {
         console.log(err);
         this.performingRequest = false;
@@ -205,12 +226,13 @@ export default {
           .doc(user.user.uid)
           .set({
             name: this.signupForm.name,
-            title: this.signupForm.title
+            cpf: this.signupForm.cpf,
+            phone: this.signupForm.phone
           })
           .then(() => {
             this.$store.dispatch("fetchUserProfile");
             this.performingRequest = false;
-            this.$router.push("/admin");
+            this.$router.push("/dashclient");
           })
           .catch(err => {
             console.log(err);
