@@ -25,6 +25,10 @@
       <router-link to="/login">
         <img src="@/assets/user.png" />
       </router-link>
+      <div v-if="userProfile.name" class="navuser">
+        <p>Olá, {{ userProfile.name }}</p>
+        <button @click="logout()">Sair</button>
+      </div>
       <router-link to="/checkout">
         <img src="@/assets/bag.png" />
       </router-link>
@@ -33,8 +37,26 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+const firebase = require("../firebaseConfig.js");
+
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  computed: {
+    ...mapState(["userProfile"])
+  },
+  methods: {
+    logout() {
+      firebase.auth
+        .signOut()
+        .then(() => {
+          this.$store.dispatch("clearData");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
 };
 </script>
 
@@ -70,7 +92,7 @@ export default {
 
 .navactions img {
   width: 60px;
-  padding-left: 30px;
+  margin-left: 30px;
 }
 
 .navlist {
@@ -131,5 +153,22 @@ export default {
 .navlist a:hover {
   color: #ff7f14;
   transform: translate(0, -5px);
+}
+
+.navuser {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+}
+
+.navuser p {
+  margin-bottom: 5px;
+}
+
+.navuser button {
+  padding: 5px;
 }
 </style>
