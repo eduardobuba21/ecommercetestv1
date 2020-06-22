@@ -20,7 +20,13 @@
 
 <script>
 export default {
-  name: "ChangeEmail"
+  name: "ChangeEmail",
+  methods: {
+    updateProfile() {
+      this.$firestore.users
+        .update(this.user)
+    }
+  }
 };
 </script>
 

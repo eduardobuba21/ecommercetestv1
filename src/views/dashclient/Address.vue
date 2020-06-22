@@ -2,7 +2,7 @@
   <div class="wrap-address">
     <div class="address">
       <div class="title">
-        <p>Endereço</p>
+        <h3>Endereço</h3>
       </div>
       <div class="street">
         <p>{{userProfile.address}}</p>
@@ -20,7 +20,9 @@
         <p>{{userProfile.addressphone}}</p>
       </div>
       <div class="options">
-        <button class="btn-alter">Editar</button>
+        <router-link to="/dashclient/changeaddress">
+          <button class="btn-alter">Editar</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -75,28 +77,28 @@ export default {
   border-top: 1px solid whitesmoke;
   display: flex;
   align-items: flex-end;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .wrap-address .address .type {
   grid-area: type;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .wrap-address .address .city-state-cep {
   grid-area: csp;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .wrap-address .address .phone {
   grid-area: phone;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .wrap-address .address .options {

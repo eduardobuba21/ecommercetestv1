@@ -4,12 +4,10 @@
       <h2>Altere sua senha</h2>
     </div>
     <div class="description">
-      <p>
-        Por questões de segurança, a redefinição de senha é feita através do seu e-mail. Insira o e-mail cadastrado na sua conta da South Pine no campo abaixo, clique no botão "Solicitar Alteração de Senha" e um e-mail será enviado para sua redefinição de senha.
-      </p>
+      <p>Por questões de segurança, a redefinição de senha é feita através do seu e-mail. Insira o e-mail cadastrado na sua conta da South Pine no campo abaixo, clique no botão "Solicitar Alteração de Senha" e um e-mail será enviado para sua redefinição de senha.</p>
     </div>
     <div class="email">
-      <input v-model.trim="passwordForm.email" type="text" id="email">
+      <input v-model.trim="passwordForm.email" type="text" id="email" />
     </div>
     <div class="confirm">
       <button class="btn-first" @click="resetPassword">Solicitar Alteração de Senha</button>
@@ -21,24 +19,24 @@
 </template>
 
 <script>
-const firebase = require("../../../firebaseConfig")
-
+const firebase = require("../../../firebaseConfig");
 export default {
   name: "ChangePassword",
   data() {
     return {
       passwordForm: {
-      email: ""
-    }
-    }
+        email: ""
+      }
+    };
   },
   methods: {
     resetPassword() {
-      firebase.auth.sendPasswordResetEmail(this.passwordForm.email)
+      firebase.auth
+        .sendPasswordResetEmail(this.passwordForm.email)
         .catch(err => {
-          console.log(err)
-          this.errorMsg = err.message
-        })
+          console.log(err);
+          this.errorMsg = err.message;
+        });
     }
   }
 };
