@@ -98,13 +98,16 @@ button {
   background-color: #b9bbbe;
 }
 
-.btn-confirm {
-  padding: 10px;
-  border: 2px solid rgb(70, 190, 102);
-  border-radius: 10px;
-  background-color: #00000000;
-  color: #fff;
-  cursor: pointer;
+.btn-alter {
+  background-color: rgb(255, 198, 47);
+}
+
+.btn-save {
+  background-color: rgb(70, 190, 102);
+}
+
+.btn-remove {
+  background-color: rgb(200, 136, 119);
 }
 
 
