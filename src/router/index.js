@@ -4,6 +4,8 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Checkout from '@/views/Checkout.vue'
 
+import Unauthorized from '@/views/Unauthorized.vue'
+
 // ======================================================================================================== //
 // DashAdmin
 import DashAdmin from '@/views/DashAdmin.vue'
@@ -53,98 +55,116 @@ const routes = [{
   },
 },
 {
+  path: '/unauthorized',
+  name: 'Unauthorized',
+  component: Unauthorized,
+},
+// ======================================================================================================== //
+// DashClient //
+{
   path: '/dashclient',
   name: 'DashClient',
   component: DashClient,
-  children: [{
-    path: 'yourorders',
-    name: 'YourOrders',
-    component: YourOrders,
+  meta: {
+    requiresAuth: true
   },
-  {
-    path: 'paymentdata',
-    name: 'PaymentData',
-    component: PaymentData,
-  },
-  {
-    path: 'personal',
-    name: 'Personal',
-    component: Personal,
-    children: [{
-      path: 'changename',
-      name: 'ChangeName',
-      component: ChangeName,
+  children: [
+    {
+      path: 'yourorders',
+      name: 'YourOrders',
+      component: YourOrders,
     },
     {
-      path: 'changeemail',
-      name: 'ChangeEmail',
-      component: ChangeEmail,
+      path: 'paymentdata',
+      name: 'PaymentData',
+      component: PaymentData,
     },
     {
-      path: 'changePassword',
-      name: 'ChangePassword',
-      component: ChangePassword,
+      path: 'personal',
+      name: 'Personal',
+      component: Personal,
+      children: [
+        {
+          path: 'changename',
+          name: 'ChangeName',
+          component: ChangeName,
+        },
+        {
+          path: 'changeemail',
+          name: 'ChangeEmail',
+          component: ChangeEmail,
+        },
+        {
+          path: 'changePassword',
+          name: 'ChangePassword',
+          component: ChangePassword,
+        },
+        {
+          path: 'changephone',
+          name: 'ChangePhone',
+          component: ChangePhone,
+        }
+      ]
     },
     {
-      path: 'changephone',
-      name: 'ChangePhone',
-      component: ChangePhone,
-    }]
-  },
-  {
-    path: 'address',
-    name: 'Address',
-    component: Address,
-  }
+      path: 'address',
+      name: 'Address',
+      component: Address,
+    }
   ]
 },
+
+// ======================================================================================================== //
+// DashAdmin //
 {
   path: '/dashadmin',
   name: 'DashAdmin',
   component: DashAdmin,
   meta: {
-    requiresAuth: true
+    requiresAuth: true,
+    requiresAdmin: true
   },
-  children: [{
-    path: 'overview',
-    name: 'Overview',
-    component: Overview,
-  },
-  {
-    path: 'orders',
-    name: 'Orders',
-    component: Orders,
-  },
-  {
-    path: 'products',
-    name: 'Products',
-    component: Products,
-  },
-  {
-    path: 'clients',
-    name: 'Clients',
-    component: Clients,
-  },
-  {
-    path: 'discounts',
-    name: 'Discounts',
-    component: Discounts,
-  },
-  {
-    path: 'help',
-    name: 'Help',
-    component: Help,
-  },
-  {
-    path: 'settings',
-    name: 'Settings',
-    component: Settings,
-  },
-  {
-    path: 'administrators',
-    name: 'Administrators',
-    component: Administrators,
-  }
+  children: [
+    {
+      path: 'overview',
+      name: 'Overview',
+      component: Overview,
+    },
+    {
+      path: 'orders',
+      name: 'Orders',
+      component: Orders,
+    },
+    {
+      path: 'products',
+      name: 'Products',
+      component: Products,
+    },
+    {
+      path: 'clients',
+      name: 'Clients',
+      component: Clients,
+    },
+    {
+      path: 'discounts',
+      name: 'Discounts',
+      component: Discounts,
+    },
+    {
+      path: 'help',
+      name: 'Help',
+      component: Help,
+    },
+    {
+      path: 'settings',
+      name: 'Settings',
+      component: Settings,
+    },
+    {
+      path: 'administrators',
+      name: 'Administrators',
+      component: Administrators,
+    }
   ]
 }
 ]
@@ -158,7 +178,7 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = firebase.auth.currentUser
 
-  // Para a rota /login
+  // For the login route
   if (to.matched.some(x => x.meta.loginRedirect)) {
     if (!currentUser) {
       next()
@@ -174,12 +194,23 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  // Para as demais rotas
+  // For any other routes
   if (requiresAuth && !currentUser) {
     next('/login')
   } else if (requiresAuth && currentUser) {
-    // Adicionar meta para verificar se a rota é de admin ou de cliente.
-    next()
+    // If route requires Admin
+    if (to.matched.some(x => x.meta.requiresAdmin)) {
+      firebase.auth.currentUser.getIdTokenResult()
+        .then(function ({ claims }) {
+          if (claims.role == "admin") {
+            next()
+          } else {
+            next('/unauthorized')
+          }
+        })
+    } else {
+      next()
+    }
   } else {
     next()
   }
