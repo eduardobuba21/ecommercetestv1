@@ -152,7 +152,7 @@ router.beforeEach((to, from, next) => {
     if (!currentUser) {
       next()
     } else {
-      next('/dashadmin')
+      next('/dashadmin/overview')
     }
   }
 

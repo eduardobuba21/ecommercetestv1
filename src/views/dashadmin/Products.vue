@@ -3,8 +3,6 @@
     <h1>Produtos</h1>
     <p>Aqui você pode gerenciar os produtos cadastrados e cadastrar novos produtos.</p>
     <br />
-    <br />
-    <br />
 
     <!-- ======================================================================================================== -->
     <!-- ======================================================================================================== -->
@@ -29,7 +27,10 @@
       <div class="dashadmin-card-2row-left">
         <div v-if="editingProduct" class="dashadmin-card-section">
           <label>Código do Produto</label>
-          <input type="text" v-model="activeproduct" disabled />
+          <div class="editingProduct-idanddelete">
+            <input type="text" v-model="activeproduct" disabled />
+            <button @click="deletionModal=true; deletionProduct=product;">DELETAR PRODUTO</button>
+          </div>
         </div>
         <div class="dashadmin-card-section">
           <h3>Informações Básicas</h3>
@@ -80,7 +81,7 @@
           <div class="switch-wrap">
             <input id="switchcheckbox" type="checkbox" class="hidden" v-model="haveVariants" />
             <label for="switchcheckbox" id="switch"></label>
-            <p>Este produto possuí variações</p>
+            <p>Este produto possui variações</p>
           </div>
           <div v-if="haveVariants">
             <p>*Pendente*</p>
@@ -101,11 +102,11 @@
             <money v-model="product.priceCompare" maxlength="9" />
           </div>
           <label>Custo</label>
-          <div class="inputPrefix inputPrefix-obs">
+          <div class="inputPrefix input-obs">
             <span>R$</span>
             <money v-model="product.cost" maxlength="9" :keyup="productStatusAtt()" />
           </div>
-          <span class="inputPrefix-obs-span">O cliente não verá isto.</span>
+          <span class="input-obs-span">O cliente não verá isto.</span>
 
           <div class="profitMarginStatus">
             <div class="profitMarginStatus-divider">
@@ -152,9 +153,13 @@
       </div>
     </div>
 
+    <!-- ======================================================================================================== -->
+    <!-- ======================================================================================================== -->
+    <!-- Deletion Modal -->
+
     <transition name="fade">
-      <div v-if="deletionModal" class="productdeletionpage">
-        <div class="productdeletionmodal">
+      <div v-if="deletionModal" class="dashadmin-deletionpage">
+        <div class="dashadmin-deletionmodal">
           <h1>Você tem certeza?</h1>
           <p>Você está prestes a excluir o seguinte produto:</p>
           <p style="color: #faa61a">{{ deletionProduct.name }}</p>
@@ -201,8 +206,8 @@
           </tbody>
         </table>
         <div v-else>
-          <div class="dashadmin-card-section dashadmin-product-empty">
-            <div class="dashadmin-product-empty-card">
+          <div class="dashadmin-card-section dashadmin-table-empty">
+            <div class="dashadmin-table-empty-card">
               <p
                 style="margin-bottom: 0; font-size: 1.2rem;"
               >Você verá os produtos aqui quando adicionados.</p>
@@ -260,7 +265,7 @@ export default {
       notComfirmedImages: [],
 
       editingProductImg: false,
-      activeproduct: null
+      activeproduct: ""
     };
   },
   firestore() {
@@ -285,6 +290,7 @@ export default {
         .then(() => {
           this.reset();
           window.scrollTo(0, 0);
+          this.notComfirmedImages = [];
           loading.switch(false);
           toast.createToast("Produto adicionado!");
         })
@@ -299,7 +305,7 @@ export default {
       let { id, ...toeditproduct } = product;
       this.activeproduct = id;
       id = null;
-      this.product = toeditproduct;
+      this.product = Object.assign(this.product, toeditproduct);
       if (Object.keys(this.product.image).length === 0) {
         this.editingProductImg = false;
       } else {
@@ -330,7 +336,7 @@ export default {
           this.productList = true;
         })
         .catch(function(error) {
-          console.error("Erro atualizando documento: ", error);
+          console.error("Erro atualizando produto: ", error);
           window.scrollTo(0, 0);
           loading.switch(false);
           toast.createToast("Erro enviando dados!", false);
@@ -405,12 +411,21 @@ export default {
     },
     deleteProduct(product) {
       loading.switch(true);
+      var delproductid = "";
+      if (product.id) {
+        delproductid = product.id;
+      } else {
+        delproductid = this.activeproduct;
+      }
       this.$firestore.products
-        .doc(product.id)
+        .doc(delproductid)
         .delete()
         .then(() => {
           this.deletionModal = false;
           this.deletionProduct = "";
+          this.addProductModal = false;
+          this.editingProduct = false;
+          this.productList = true;
           loading.switch(false);
           toast.createToast("Produto deletado!");
         })
@@ -429,7 +444,7 @@ export default {
     },
     productStatusAtt() {
       this.productstatus.profit = this.product.price - this.product.cost;
-      if (this.productstatus.profit == 0) {
+      if (this.productstatus.profit == 0 || this.product.price == 0) {
         this.productstatus.margin = 0;
       } else {
         this.productstatus.margin =
@@ -463,14 +478,14 @@ export default {
   grid-area: dashadmin-card-full-table;
 }
 
-.dashadmin-product-empty {
+.dashadmin-table-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.dashadmin-product-empty-card {
+.dashadmin-table-empty-card {
   width: 100%;
   height: 100px;
   background: #36393f;
@@ -545,36 +560,14 @@ export default {
   margin: 0;
 }
 
-/* ======================================================================== */
-/* Deletion Page */
-
-.productdeletionpage {
-  position: fixed;
-  z-index: 1;
-  background-color: #1e2124c2;
-  height: 100vh;
-  width: 100vw;
-  left: 0;
-  top: 0;
+.editingProduct-idanddelete {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
-.productdeletionmodal {
-  background-color: #36393f;
-  border-radius: 10px;
-  padding: 40px;
-  text-align: center;
-  max-width: 500px;
-}
-
-.productdeletionmodal h1 {
-  margin-bottom: 10px;
-}
-
-.productdeletionmodal button {
-  width: 120px;
-  margin: 20px 10px 0 10px;
+.editingProduct-idanddelete input {
+  margin-bottom: 0;
+  width: 100%;
+  margin-right: 20px;
 }
 </style>

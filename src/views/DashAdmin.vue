@@ -323,4 +323,37 @@ export default {
 .dash-admin-wrap p {
   color: #b9bbbe;
 }
+
+/* ======================================================================== */
+/* Deletion Page */
+
+.dashadmin-deletionpage {
+  position: fixed;
+  z-index: 1;
+  background-color: #1e2124c2;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashadmin-deletionmodal {
+  background-color: #36393f;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+  max-width: 500px;
+}
+
+.dashadmin-deletionmodal h1 {
+  margin-bottom: 10px;
+}
+
+.dashadmin-deletionmodal button {
+  width: 120px;
+  margin: 20px 10px 0 10px;
+}
 </style>
