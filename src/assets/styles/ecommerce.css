@@ -184,6 +184,10 @@ input {
   font-size: 1rem;
 }
 
+input[type="text"]:disabled {
+  background-color: #1e2124;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

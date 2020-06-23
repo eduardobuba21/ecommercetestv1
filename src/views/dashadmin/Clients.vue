@@ -44,7 +44,7 @@
             v-model="user.phone"
           />
           <label>E-mail</label>
-          <input class="input-obs" maxlength="50" type="text" v-model="user.email" disabled />
+          <input class="input-obs" maxlength="50" type="text" v-model="activeclientemail" disabled />
           <span class="input-obs-span">Apenas o cliente pode alterar seu e-mail e senha.</span>
           <div class="switch-wrap">
             <input id="switchcheckbox" type="checkbox" class="hidden" v-model="user.marketingmails" />
@@ -70,7 +70,12 @@
             v-model="user.addressphone"
           />
           <label>CEP</label>
-          <the-mask :mask="'#####-###'" :masked="true" v-model="user.addresspostcode" />
+          <the-mask
+            :mask="'#####-###'"
+            :masked="true"
+            v-model="user.addresspostcode"
+            :keyup="searchAddress()"
+          />
           <label>Endereço</label>
           <input class="inputMaxLength-input" maxlength="50" type="text" v-model="user.address" />
           <p class="inputMaxLength-p" v-text="(50 - user.address.length) + '/50'"></p>
@@ -159,6 +164,8 @@
 <script>
 import toast from "@/assets/js/toast.js";
 import loading from "@/assets/js/loading.js";
+
+import axios from "axios";
 const firebase = require("@/firebaseConfig.js");
 
 export default {
@@ -191,6 +198,8 @@ export default {
       activeclient: "",
       activeclientemail: "",
 
+      fixcep: "",
+
       deletionClient: {},
 
       userbkp: {}
@@ -209,6 +218,21 @@ export default {
       this.user = Object.assign(this.user, toeditclient);
       this.editClientModal = true;
       this.clientList = false;
+      this.activeclientemail = "";
+      this.getUserEmail(this.activeclient);
+    },
+    getUserEmail(uid) {
+      this.activeclientemail = "Carregando email...";
+      var getUserEmail = firebase.functions.httpsCallable("getUserEmail");
+      var data = { uid: uid };
+      getUserEmail(data)
+        .then(resdata => {
+          this.activeclientemail = resdata.data;
+        })
+        .catch(error => {
+          console.log("Erro procurando email:", error);
+          this.activeclientemail = "Não foi possível carregar o email.";
+        });
     },
     updateClient() {
       loading.switch(true);
@@ -254,6 +278,29 @@ export default {
           this.deletionClient = {};
           loading.switch(false);
           toast.createToast("Erro deletando cliente!", false);
+        });
+    },
+    searchAddress() {
+      if (this.user.addresspostcode.length !== 9) return;
+      var cep = this.user.addresspostcode.replace(/\D/g, "");
+      if (cep == this.fixcep) return;
+      this.user.addresscity = "Buscando endereço...";
+      this.user.addressstate = "Buscando endereço...";
+      this.fixcep = cep;
+      axios
+        .get("https://viacep.com.br/ws/" + cep + "/json")
+        .then(response => {
+          if (response.data.erro) {
+            this.user.addresscity = "CEP não encontrado!";
+            this.user.addressstate = "CEP não encontrado!";
+            return toast.createToast("CEP não encontrado!", false);
+          }
+          this.user.addresscity = response.data.localidade;
+          this.user.addressstate = response.data.uf;
+        })
+        .catch(error => {
+          console.log("Erro buscando CEP: ", error);
+          toast.createToast("Erro buscando CEP!", false);
         });
     },
     reset() {
