@@ -19,6 +19,7 @@
     "vue-firestore": "^0.3.30",
     "vue-router": "^3.3.4",
     "vue-the-mask": "^0.11.1",
+    "vue-viacep": "^1.0.3",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
