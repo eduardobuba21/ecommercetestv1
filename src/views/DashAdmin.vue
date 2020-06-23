@@ -234,6 +234,8 @@ export default {
 
 .da-nav {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .da-nav .active svg {
@@ -252,6 +254,10 @@ export default {
 .da-nav li:hover {
   background-color: #282b30;
   border-radius: 8px;
+}
+
+.da-nav > :last-child {
+  justify-self: flex-end;
 }
 
 .da-nav-item {

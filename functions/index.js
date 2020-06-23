@@ -7,24 +7,6 @@ const stripe = require('stripe')('sk_test_YY5qZzyUCzkftvLRbmIJjqPl00e7NdLwBT');
 
 const db = firebaseAdmin.firestore()
 
-// Adiciona userClaims ao criar usuário.
-// exports.AddUserRole = functions.auth.user().onCreate(async (authUser) => {
-//   if (authUser.email) {
-//     const customClaims = {
-//       role: "client"
-//     };
-//     try {
-//       var _ = await firebaseAdmin.auth().setCustomUserClaims(authUser.uid, customClaims)
-
-//       return db.collection("roles").doc(authUser.uid).set({
-//         email: authUser.email,
-//         role: customClaims
-//       })  
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
-// });
 
 exports.setUserRole = functions.https.onCall(async (data, context) => {
   if (!(context.auth.token.role === "admin")) return
@@ -36,6 +18,17 @@ exports.setUserRole = functions.https.onCall(async (data, context) => {
   } catch (error) {
     console.log(error)
   }
+});
+
+
+exports.getUserEmail = functions.https.onCall((data, context) => {
+  if (!(context.auth.token.role === "admin")) return { status: 'error', code: 401, message: 'Não autorizado!' }
+  var usermail = firebaseAdmin.auth().getUser(data.uid)
+    .then(userRecord => {
+      return userRecord.toJSON().email
+    })
+    .catch(error => reject({ status: 'error', code: 500, error }))
+  return usermail
 });
 
 
