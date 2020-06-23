@@ -76,6 +76,7 @@
             </button>
           </div>
         </div>
+
         <div class="dashadmin-card-section">
           <h3>Variações</h3>
           <div class="switch-wrap">
@@ -88,6 +89,7 @@
           </div>
         </div>
       </div>
+
       <div class="dashadmin-card-2row-right">
         <div class="dashadmin-card-section">
           <h3>Precificação</h3>
@@ -212,7 +214,6 @@
                 style="margin-bottom: 0; font-size: 1.2rem;"
               >Você verá os produtos aqui quando adicionados.</p>
             </div>
-
             <button class="btn-first" @click="addProductModal=true; productList=false">ADICIONAR</button>
           </div>
         </div>
