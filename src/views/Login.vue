@@ -155,7 +155,7 @@
 </template>
 
 <script>
-const firebase = require("../firebaseConfig.js");
+const firebase = require("@/firebaseConfig.js");
 
 export default {
   data() {
@@ -206,7 +206,14 @@ export default {
         this.$store.commit("setCurrentUser", user.user);
         this.$store.dispatch("fetchUserProfile");
         this.performingRequest = false;
-        this.$router.push("/dashadmin/overview");
+        // this.$router.push("/dashclient");
+        firebase.auth.currentUser.getIdTokenResult().then(({ claims }) => {
+          if (claims.role == "admin") {
+            this.$router.push("/dashadmin/overview");
+          } else {
+            this.$router.push("/dashclient");
+          }
+        });
       } catch (err) {
         console.log(err);
         this.performingRequest = false;
@@ -231,8 +238,17 @@ export default {
           })
           .then(() => {
             this.$store.dispatch("fetchUserProfile");
+            firebase.auth
+              .signOut()
+              .then(() => {
+                this.$store.dispatch("clearData");
+                this.errorMsg = "";
+                this.showLoginForm = !this.showLoginForm;
+              })
+              .catch(err => {
+                console.log(err);
+              });
             this.performingRequest = false;
-            this.$router.push("/dashclient");
           })
           .catch(err => {
             console.log(err);

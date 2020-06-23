@@ -19,6 +19,7 @@ const db = firebase.firestore()
 const auth = firebase.auth()
 const currentUser = firebase.auth().currentUser
 const storage = firebase.storage()
+const functions = firebase.functions()
 
 // firebase collections
 const usersCollection = db.collection('users')
@@ -30,5 +31,6 @@ export {
     currentUser,
     usersCollection,
     productsCollection,
-    storage
+    storage,
+    functions
 }

@@ -5,6 +5,40 @@ const firebaseAdmin = require('firebase-admin');
 firebaseAdmin.initializeApp();
 const stripe = require('stripe')('sk_test_YY5qZzyUCzkftvLRbmIJjqPl00e7NdLwBT');
 
+const db = firebaseAdmin.firestore()
+
+// Adiciona userClaims ao criar usuário.
+// exports.AddUserRole = functions.auth.user().onCreate(async (authUser) => {
+//   if (authUser.email) {
+//     const customClaims = {
+//       role: "client"
+//     };
+//     try {
+//       var _ = await firebaseAdmin.auth().setCustomUserClaims(authUser.uid, customClaims)
+
+//       return db.collection("roles").doc(authUser.uid).set({
+//         email: authUser.email,
+//         role: customClaims
+//       })  
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// });
+
+exports.setUserRole = functions.https.onCall(async (data, context) => {
+  if (!(context.auth.token.role === "admin")) return
+  try {
+    var _ = await firebaseAdmin.auth().setCustomUserClaims(data.uid, data.customClaims)
+    return db.collection("users").doc(data.uid).update({
+      customClaims: data.customClaims
+    })
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+
 exports.checkoutSession = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     let myProducts = request.query.products;
