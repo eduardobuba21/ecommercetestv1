@@ -12,7 +12,7 @@
         </label>
         <label for="state">
           <h3>Estado:</h3>
-          <input name="uf" type="text" id="uf" v-model="user.addressstate" size="2" />
+          <input name="uf" type="text" id="uf" v-model="user.addressstate" value="userProfile.adressstate" size="2" />
         </label>
         <label for="city">
           <h3>Cidade:</h3>
@@ -52,6 +52,9 @@
 </template>
 
 <script>
+const firebase = require('@/firebaseConfig.js')
+import {mapGetters} from 'vuex'
+
 export default {
   name: "ChangeAddress",
   data() {
@@ -69,13 +72,21 @@ export default {
       }
     }
   },
+  firestore() {
+    return {
+      users: firebase.usersCollection
+    };
+  },
   methods: {
     search_postcode(value){
       this.$viaCep.buscarCep(value).then((obj) => {
-        console.log(obj)
         this.user.addresscity = obj.localidade
         this.user.addressstate = obj.uf
       })
+    },
+
+    userProfile(){
+      return mapGetters.userProfile
     }
   }
 };

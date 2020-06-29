@@ -27,10 +27,7 @@ import PaymentData from '@/views/dashclient/PaymentData'
 import Personal from '@/views/dashclient/Personal'
 import Address from '@/views/dashclient/Address'
 
-import ChangeName from '@/views/dashclient/change-data/ChangeName'
-import ChangeEmail from '@/views/dashclient/change-data/ChangeEmail'
-import ChangePassword from '@/views/dashclient/change-data/ChangePassword'
-import ChangePhone from '@/views/dashclient/change-data/ChangePhone'
+import ChangePersonalData from '@/views/dashclient/change-data/ChangePersonalData'
 
 import ChangeAddress from '@/views/dashclient/change-data/ChangeAddress'
 
@@ -92,24 +89,9 @@ const routes = [{
       component: Personal,
       children: [
         {
-          path: 'changename',
-          name: 'ChangeName',
-          component: ChangeName,
-        },
-        {
-          path: 'changeemail',
-          name: 'ChangeEmail',
-          component: ChangeEmail,
-        },
-        {
-          path: 'changePassword',
-          name: 'ChangePassword',
-          component: ChangePassword,
-        },
-        {
-          path: 'changephone',
-          name: 'ChangePhone',
-          component: ChangePhone,
+          path: 'changepersonaldata',
+          name: 'ChangePersonalData',
+          component: ChangePersonalData,
         }
       ]
     },

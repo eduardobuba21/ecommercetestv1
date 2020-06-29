@@ -6,7 +6,7 @@
           <p class="title">Nome</p>
           <p class="content">{{userProfile.name}}</p>
           <div class="btn-personal">
-            <router-link to="/dashclient/personal/changename">
+            <router-link to="/dashclient/personal/changepersonaldata">
               <button class="btn-first">Editar</button>
             </router-link>
           </div>
