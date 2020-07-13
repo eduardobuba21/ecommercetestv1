@@ -22,6 +22,13 @@ import money from 'v-money'
 Vue.use(money, { precision: 2, masked: false, decimal: ',', thousands: '.', })
 
 // ======================================================================== //
+// ViaCep //
+
+import ViaCep from 'vue-viacep'
+
+Vue.use(ViaCep)
+
+// ======================================================================== //
 // Buy Button //
 Vue.component('Buy', require('@/components/Buy.vue').default)
 

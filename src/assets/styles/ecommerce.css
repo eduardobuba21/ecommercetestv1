@@ -26,6 +26,12 @@ h1 {
   font-weight: 700;
 }
 
+h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400px;
+}
+
 h3 {
   font-family: "Montserrat", sans-serif;
   font-size: 1.1rem;
@@ -91,13 +97,16 @@ button {
   background-color: #b9bbbe;
 }
 
-.btn-confirm {
-  padding: 10px;
-  border: 2px solid rgb(70, 190, 102);
-  border-radius: 10px;
-  background-color: #00000000;
-  color: #fff;
-  cursor: pointer;
+.btn-alter {
+  background-color: rgb(255, 198, 47);
+}
+
+.btn-save {
+  background-color: rgb(70, 190, 102);
+}
+
+.btn-remove {
+  background-color: rgb(234, 82, 82);
 }
 
 

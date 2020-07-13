@@ -17,7 +17,7 @@ firebase.initializeApp(config)
 // firebase utils
 const db = firebase.firestore()
 const auth = firebase.auth()
-const currentUser = auth.currentUser
+const currentUser = firebase.auth().currentUser
 const storage = firebase.storage()
 const functions = firebase.functions()
 

@@ -6,8 +6,8 @@
           <p class="title">Nome</p>
           <p class="content">{{userProfile.name}}</p>
           <div class="btn-personal">
-            <router-link to="/dashclient/personal/changename">
-              <button class="btn-primary">Editar</button>
+            <router-link to="/dashclient/personal/changepersonaldata">
+              <button class="btn-first">Editar</button>
             </router-link>
           </div>
         </div>
@@ -18,7 +18,7 @@
           <p class="content">{{currentUser.email}}</p>
           <div class="btn-personal">
             <router-link to="/dashclient/personal/changeemail">
-              <button class="btn-primary">Editar</button>
+              <button class="btn-first">Editar</button>
             </router-link>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <p class="content">********</p>
           <div class="btn-personal">
             <router-link to="/dashclient/personal/changepassword">
-              <button class="btn-primary">Editar</button>
+              <button class="btn-first">Editar</button>
             </router-link>
           </div>
         </div>
@@ -40,7 +40,7 @@
           <p class="content">{{userProfile.phone}}</p>
           <div class="btn-personal">
             <router-link to="/dashclient/personal/changephone">
-              <button class="btn-primary">Editar</button>
+              <button class="btn-first">Editar</button>
             </router-link>
           </div>
         </div>
@@ -53,12 +53,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Personal",
   computed: {
-    ...mapState(["userProfile", "currentUser"])
+    ...mapGetters(["currentUser", "userProfile"])
   }
 };
 </script>

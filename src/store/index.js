@@ -14,6 +14,14 @@ export default new Vuex.Store({
 
     cart: cart ? JSON.parse(cart) : []
   },
+  getters: {
+    currentUser(state){
+      return state.currentUser
+    },
+    userProfile(state){
+      return state.userProfile
+    }
+  },
   mutations: {
     setCurrentUser(state, val) {
       state.currentUser = val
@@ -55,10 +63,9 @@ export default new Vuex.Store({
     },
     updateProfile({ state }, data) {
       let name = data.name
-      let title = data.title
       let email = data.email
 
-      firebase.usersCollection.doc(state.currentUser.uid).update({ name, title, email })
+      firebase.usersCollection.doc(state.currentUser.uid).update({ name, email })
     }
   },
   modules: {

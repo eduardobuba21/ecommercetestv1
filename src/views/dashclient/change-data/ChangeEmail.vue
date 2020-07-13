@@ -1,7 +1,7 @@
 <template>
   <div class="change">
     <div class="title">
-      <h3>Altere seu e-mail</h3>
+      <h2>Altere seu e-mail</h2>
     </div>
     <div class="description">
       <p>Se quiser alterar o e-mail associado à sua conta da South Pine, você poderá fazê-lo a seguir. Lembre-se de clicar no botão "Salvar Alterações" quando tiver concluído.</p>
@@ -20,7 +20,13 @@
 
 <script>
 export default {
-  name: "ChangeEmail"
+  name: "ChangeEmail",
+  methods: {
+    updateProfile() {
+      this.$firestore.users
+        .update(this.user)
+    }
+  }
 };
 </script>
 

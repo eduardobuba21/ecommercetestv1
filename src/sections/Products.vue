@@ -1,7 +1,7 @@
 <template>
   <div class="products">
     <div class="p-tittle">
-      <h1>Our Products</h1>
+      <h1>Nossos Produtos</h1>
     </div>
 
     <div class="p-cards">
