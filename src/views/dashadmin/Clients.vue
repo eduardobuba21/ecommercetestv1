@@ -72,7 +72,7 @@
           <label>CEP</label>
           <the-mask
             :mask="'#####-###'"
-            :masked="true"
+            :masked="false"
             v-model="user.addresspostcode"
             :keyup="searchAddress()"
           />
