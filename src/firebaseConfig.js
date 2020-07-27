@@ -1,7 +1,6 @@
 import firebase from 'firebase'
 import 'firebase/firestore'
 import 'firebase/storage'
-// import { user } from 'firebase-functions/lib/providers/auth'
 
 const config = {
     apiKey: "AIzaSyCy5mFdis4yzfQj4Bzva_orS70xjn-vdh0",
@@ -22,26 +21,22 @@ const currentUser = firebase.auth().currentUser
 const storage = firebase.storage()
 const functions = firebase.functions()
 
-// firebase collections
+// firebae collections
 const usersCollection = db.collection('users')
-//retornando apenas um usuário
-const loggedUser = function() {
-    let logged = {}
-    for (let user in usersCollection) {
-        if (currentUser.name === user.name) {
-            logged = user
-        } 
-    }
-    return logged
-}
 const productsCollection = db.collection('products')
+const ordersCollection = db.collection('orders')
+
+// Functions
+
 
 export {
     db,
     auth,
     currentUser,
     usersCollection,
-    loggedUser,
+    ordersCollection,
+    // loggedUser,
+    // user_orders,
     productsCollection,
     storage,
     functions

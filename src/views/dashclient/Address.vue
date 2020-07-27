@@ -33,6 +33,12 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Address",
+  // db.collection('orders').doc(paymentdata.body.id.toString()).set(tosavedata);
+      // var paydata = {
+      //   id: paymentdata.body.id,
+      //   status: paymentdata.body.status,
+      //   status_detail: paymentdata.body.status_detail
+      // };
   computed: {
     ...mapGetters(["userProfile"])
   }

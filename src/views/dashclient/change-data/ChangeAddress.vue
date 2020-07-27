@@ -59,6 +59,7 @@ export default {
   name: "ChangeAddress",
   data() {
     return {
+      users: [],
       user: {
         addresspostcode: "",
         addressstate: "",

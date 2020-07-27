@@ -82,7 +82,6 @@ import Navbar from "../components/Navbar";
 
 export default {
   name: "DashClient",
-  data() {},
   methods: {},
   components: { Navbar }
 };
