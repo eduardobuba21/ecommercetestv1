@@ -16,6 +16,9 @@ firebase.initializeApp(config)
 
 // firebase utils
 const db = firebase.firestore()
+const firestore = firebase.firestore
+const fieldValue = firebase.firestore.FieldValue
+const fdb = firebase.database()
 const auth = firebase.auth()
 const currentUser = firebase.auth().currentUser
 const storage = firebase.storage()
@@ -35,6 +38,9 @@ export {
     currentUser,
     usersCollection,
     ordersCollection,
+    firestore,
+    fdb,
+    fieldValue,
     // loggedUser,
     // user_orders,
     productsCollection,

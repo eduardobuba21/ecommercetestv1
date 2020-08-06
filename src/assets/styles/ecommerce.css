@@ -33,6 +33,7 @@ h2 {
 h3 {
   font-size: 1.1rem;
   margin-bottom: 15px;
+  color: whitesmoke;
 }
 
 p {
@@ -42,6 +43,7 @@ p {
 a {
   text-decoration: none;
   color: #fff;
+  cursor: pointer;
 }
 
 ul {
@@ -109,7 +111,7 @@ button {
 }
 
 .btn-remove {
-  background-color: rgb(234, 82, 82);
+  background-color: rgb(234, 82, 82)
 }
 
 
@@ -189,6 +191,7 @@ input {
 
 input[type="text"]:disabled {
   background-color: #1e2124;
+  border: solid 0.5px dimgray;
 }
 
 input::-webkit-outer-spin-button,

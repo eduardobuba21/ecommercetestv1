@@ -120,6 +120,9 @@ exports.checkoutProcessPayment = functions.https.onRequest((request, response) =
         status_detail: paymentdata.body.status_detail
       };
       response.status(200).send({ paymentdata: paydata });
+      db.collection("users").doc(request.query.client).update({
+        "orders": firebaseAdmin.firestore.FieldValue.arrayUnion(paymentdata.body_id)
+      })
       return;
     }).catch((error) => {
       console.log("ERRO EFETUANDO PAGAMENTO: ", error);

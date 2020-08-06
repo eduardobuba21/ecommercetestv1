@@ -75,8 +75,8 @@ export default {
 .wrap-your-orders .ords .your-orders {
   background-color: #1b2124;
   color: whitesmoke;
-  width: 400px;
-  height: 300px;
+  width: 800px;
+  height: 400px;
   border-radius: 20px;
   padding: 30px;
   margin: 30px;

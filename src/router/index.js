@@ -29,8 +29,6 @@ import Address from '@/views/dashclient/Address'
 
 import ChangePersonalData from '@/views/dashclient/change-data/ChangePersonalData'
 
-import ChangeAddress from '@/views/dashclient/change-data/ChangeAddress'
-
 const firebase = require("../firebaseConfig.js");
 
 Vue.use(VueRouter)
@@ -77,11 +75,6 @@ const routes = [{
       path: 'paymentdata',
       name: 'PaymentData',
       component: PaymentData,
-    },
-    {
-      path: "changeaddress",
-      name: "ChangeAddress",
-      component: ChangeAddress
     },
     {
       path: 'personal',
