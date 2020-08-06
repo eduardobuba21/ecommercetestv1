@@ -20,22 +20,20 @@ body {
 }
 
 h1 {
-  font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
   margin-bottom: 10px;
   font-weight: 700;
 }
 
 h2 {
-  font-family: "Montserrat", sans-serif;
   font-size: 1.4rem;
   font-weight: 400px;
 }
 
 h3 {
-  font-family: "Montserrat", sans-serif;
   font-size: 1.1rem;
   margin-bottom: 15px;
+  color: whitesmoke;
 }
 
 p {
@@ -45,6 +43,7 @@ p {
 a {
   text-decoration: none;
   color: #fff;
+  cursor: pointer;
 }
 
 ul {
@@ -54,6 +53,12 @@ ul {
 svg {
   width: 50px;
   height: 50px;
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-bottom: 1px solid #ffffff80;
 }
 
 ::-webkit-scrollbar {
@@ -106,7 +111,7 @@ button {
 }
 
 .btn-remove {
-  background-color: rgb(234, 82, 82);
+  background-color: rgb(234, 82, 82)
 }
 
 
@@ -186,6 +191,7 @@ input {
 
 input[type="text"]:disabled {
   background-color: #1e2124;
+  border: solid 0.5px dimgray;
 }
 
 input::-webkit-outer-spin-button,

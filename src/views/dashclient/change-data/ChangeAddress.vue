@@ -8,15 +8,15 @@
         <label for="postcode">
           <h3>CEP:</h3>
           <input name="cep" type="text" id="cep" value="" size="10" maxlength="9" v-model="user.addresspostcode"
-                    @blur="search_postcode(user.addresspostcode);" />
+                    @blur="search_postcode(user.addresspostcode);" placeholder="Insira o CEP" />
         </label>
         <label for="state">
           <h3>Estado:</h3>
-          <input name="uf" type="text" id="uf" v-model="user.addressstate" value="userProfile.adressstate" size="2" />
+          <input name="uf" type="text" id="uf" v-model="user.addressstate" value="userProfile.adressstate" size="2" placeholder="**" disabled/>
         </label>
         <label for="city">
           <h3>Cidade:</h3>
-          <input name="cidade" type="text" id="cidade" size="40" v-model="user.addresscity" />
+          <input name="cidade" type="text" id="cidade" size="40" v-model="user.addresscity" placeholder="****************" disabled/>
         </label>
         <label for="neighborhood">
           <h3>Bairro:</h3>
@@ -45,7 +45,9 @@
       </div>
       <div class="actions">
         <button class="btn-save">Salvar</button>
-        <button class="btn-remove">Fechar</button>
+        <router-link to="/dashclient">
+          <button class="btn-remove">Fechar</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -59,6 +61,7 @@ export default {
   name: "ChangeAddress",
   data() {
     return {
+      users: [],
       user: {
         addresspostcode: "",
         addressstate: "",
@@ -105,7 +108,8 @@ export default {
   border-radius: 20px;
   padding: 50px;
   color: whitesmoke;
-  background-color: #1b2124;
+  background-color: #1e2124;
+  box-shadow: 0 7px 9px rgba(0, 0, 0, 0.3);
   display: grid;
   grid-template-rows: 10% 80% 10%;
   grid-template-areas:

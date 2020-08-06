@@ -71,7 +71,9 @@
         </div>
       </div>
     </div>
+
     <div class="dc-wrap-content">
+      <div id="toastzone"></div>
       <router-view />
     </div>
   </div>
@@ -82,9 +84,8 @@ import Navbar from "../components/Navbar";
 
 export default {
   name: "DashClient",
-  data() {},
   methods: {},
-  components: { Navbar }
+  components: { Navbar },
 };
 </script>
 
@@ -112,12 +113,13 @@ export default {
   display: grid;
   width: 100%;
   grid-template-rows: 40% 20% 40%;
-  grid-template-areas: "icon"
-                        "title"
-                        "desciption";
+  grid-template-areas:
+    "icon"
+    "title"
+    "desciption";
 }
 
-.wrap-cards .container .card svg{
+.wrap-cards .container .card svg {
   height: 45px;
   width: auto;
   fill: whitesmoke;
@@ -158,6 +160,10 @@ export default {
 }
 
 .dc-wrap-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: 50px;
   padding: 20px;
 }

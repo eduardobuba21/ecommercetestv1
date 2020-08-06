@@ -76,7 +76,7 @@ export default {
 
 <style>
 .change {
-  width: 1200px;
+  width: 800px;
   height: 800px;
   border-radius: 20px;
   padding: 40px;

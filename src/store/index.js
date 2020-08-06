@@ -15,10 +15,10 @@ export default new Vuex.Store({
     cart: cart ? JSON.parse(cart) : []
   },
   getters: {
-    currentUser(state){
+    currentUser(state) {
       return state.currentUser
     },
-    userProfile(state){
+    userProfile(state) {
       return state.userProfile
     }
   },
