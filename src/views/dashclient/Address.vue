@@ -2,7 +2,7 @@
   <div class="wrap-address">
     <div class="address">
       <div class="title">
-        <h3>Endereço</h3>
+        <h3>Endereço de Entrega</h3>
       </div>
       <div class="street">
         <p>{{userProfile.address}}</p>
